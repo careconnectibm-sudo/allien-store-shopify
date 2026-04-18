@@ -159,7 +159,7 @@
     categories.forEach(cat => {
       const card = document.createElement('a');
       card.className = 'sbc-card';
-      card.href = `/pages/stores?cat=${encodeURIComponent(cat)}`;
+      card.href = `/?view=stores&cat=${encodeURIComponent(cat)}`;
       
       const icon = document.createElement('span');
       icon.className = 'sbc-icon';
