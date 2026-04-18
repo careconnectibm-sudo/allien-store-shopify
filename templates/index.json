@@ -9,51 +9,22 @@
  */
 {
   "sections": {
-    "image_banner_main": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Megastore Special Offers",
-            "heading_size": "h0"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "Up to 50% Off on Premium Electronics & Partner Stores.",
-            "text_style": "subtitle"
-          }
-        },
-        "buttons": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop Now",
-            "button_link_1": "shopify:\/\/collections\/all",
-            "button_style_secondary_1": false,
-            "button_label_2": "View All Stores",
-            "button_link_2": "shopify:\/\/pages\/stores",
-            "button_style_secondary_2": true
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text",
-        "buttons"
-      ],
+    "megastore_hero_main": {
+      "type": "megastore-hero",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "medium",
-        "image_behavior": "none",
-        "desktop_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": true,
-        "color_scheme": "scheme-1",
-        "stack_images_on_mobile": true,
-        "mobile_content_alignment": "center",
-        "show_text_below": true
+        "title": "Shop Smart, Earn Every Time",
+        "subtitle": "Discover 400+ partner stores across every category.",
+        "search_placeholder": "Search your favorite brands...",
+        "stat_2_val": "15,000+",
+        "stat_2_label": "Deals Today",
+        "stat_3_val": "1M+",
+        "stat_3_label": "Happy Users",
+        "bg_color_1": "#1a1a2e",
+        "bg_color_2": "#16213e",
+        "text_color": "#ffffff",
+        "accent_color": "#1A73E8",
+        "pad_top": 100,
+        "pad_bot": 100
       }
     },
     "store_slider_home": {
@@ -184,7 +155,7 @@
     }
   },
   "order": [
-    "image_banner_main",
+    "megastore_hero_main",
     "shop_by_category_home",
     "store_slider_home",
     "product_slider_home",

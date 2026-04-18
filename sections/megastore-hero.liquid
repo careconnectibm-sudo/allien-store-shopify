@@ -1,0 +1,326 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════════
+  Section: Megastore Hero
+  File:    sections/megastore-hero.liquid
+  Requires: assets/stores-data.js
+  ═══════════════════════════════════════════════════════════════
+  A high-performance dark hero section with global search and stats.
+{% endcomment %}
+
+{{ 'stores-data.js' | asset_url | script_tag }}
+
+<section
+  id="msh-{{ section.id }}"
+  class="msh-section"
+  style="
+    --msh-bg-1: {{ section.settings.bg_color_1 }};
+    --msh-bg-2: {{ section.settings.bg_color_2 }};
+    --msh-text: {{ section.settings.text_color }};
+    --msh-accent: {{ section.settings.accent_color }};
+    padding-top: {{ section.settings.pad_top }}px;
+    padding-bottom: {{ section.settings.pad_bot }}px;
+  "
+>
+  <div class="msh-container">
+    <div class="msh-content">
+      <h1 class="msh-title">{{ section.settings.title }}</h1>
+      <p class="msh-subtitle">{{ section.settings.subtitle }}</p>
+
+      <div class="msh-search-outer">
+        <form action="/pages/stores" method="get" class="msh-search-form">
+          <svg class="msh-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input
+            type="text"
+            name="q"
+            class="msh-search-input"
+            placeholder="{{ section.settings.search_placeholder }}"
+            autocomplete="off"
+          >
+          <button type="submit" class="msh-search-btn">Search</button>
+        </form>
+      </div>
+
+      <div class="msh-stats">
+        <div class="msh-stat-item">
+          <span class="msh-stat-val" id="msh-count-stores">400+</span>
+          <span class="msh-stat-label">Partner Brands</span>
+        </div>
+        <div class="msh-stat-sep">/</div>
+        <div class="msh-stat-item">
+          <span class="msh-stat-val">{{ section.settings.stat_2_val }}</span>
+          <span class="msh-stat-label">{{ section.settings.stat_2_label }}</span>
+        </div>
+        <div class="msh-stat-sep">/</div>
+        <div class="msh-stat-item">
+          <span class="msh-stat-val">{{ section.settings.stat_3_val }}</span>
+          <span class="msh-stat-label">{{ section.settings.stat_3_label }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.msh-section {
+  background: linear-gradient(135deg, var(--msh-bg-1) 0%, var(--msh-bg-2) 100%);
+  color: var(--msh-text, #ffffff);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle background pattern */
+.msh-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+
+.msh-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.msh-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.msh-title {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+.msh-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 40px;
+}
+
+.msh-search-outer {
+  max-width: 600px;
+  margin: 0 auto 60px;
+}
+
+.msh-search-form {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 60px;
+  padding: 6px 6px 6px 20px;
+  transition: all 0.3s ease;
+}
+.msh-search-form:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+.msh-search-icon {
+  color: rgba(255, 255, 255, 0.5);
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.msh-search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 12px 0;
+  outline: none;
+}
+.msh-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.msh-search-btn {
+  background: var(--msh-accent);
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 40px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.msh-search-btn:hover {
+  opacity: 0.9;
+}
+
+.msh-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+.msh-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+.msh-stat-val {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.msh-stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+}
+.msh-stat-sep {
+  font-size: 1.5rem;
+  color: rgba(255,255,255,0.15);
+  font-weight: 300;
+}
+
+@media (max-width: 600px) {
+  .msh-stats { flex-direction: column; gap: 20px; }
+  .msh-stat-sep { display: none; }
+  .msh-search-form { padding: 4px; border-radius: 12px; }
+  .msh-search-btn { padding: 10px 15px; }
+  .msh-search-icon { display: none; }
+  .msh-search-input { padding-left: 12px; font-size: 1rem; }
+}
+</style>
+
+<script>
+(function() {
+  function updateCount(stores) {
+    const el = document.getElementById('msh-count-stores');
+    if (el) el.textContent = stores.length + '+';
+  }
+
+  function waitForData() {
+    if (window.STORES_DATA) {
+      updateCount(window.STORES_DATA);
+    } else {
+      setTimeout(waitForData, 100);
+    }
+  }
+
+  waitForData();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Megastore Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop Smart, Earn Every Time"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Discover 400+ partner stores across every category."
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder",
+      "default": "Search your favorite brands..."
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_val",
+      "label": "Stat 2 Value",
+      "default": "15,000+"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Stat 2 Label",
+      "default": "Deals Today"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_val",
+      "label": "Stat 3 Value",
+      "default": "1M+"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Stat 3 Label",
+      "default": "Happy Users"
+    },
+    {
+      "type": "header",
+      "content": "Aesthetics"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_1",
+      "label": "Gradient Background 1",
+      "default": "#1a1a2e"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_2",
+      "label": "Gradient Background 2",
+      "default": "#16213e"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#1A73E8"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "pad_top",
+      "label": "Padding Top",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "pad_bot",
+      "label": "Padding Bottom",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Megastore Hero",
+      "category": "Hero"
+    }
+  ]
+}
+{% endschema %}
