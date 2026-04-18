@@ -11,36 +11,16 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "footer": {
-      "type": "footer",
-      "blocks": {
-        "brand-information": {
-          "type": "brand_information",
-          "settings": {
-            "show_social": true
-          }
-        }
-      },
-      "block_order": [
-        "brand-information"
-      ],
+    "custom_footer_main": {
+      "type": "custom-footer",
       "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": false,
-        "newsletter_heading": "",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "description": "Shop smart and earn rewards on every purchase. We partner with the world's leading brands to bring you the best deals and cashback offers.",
+        "bg_color": "#1a202c",
+        "text_color": "#cbd5e0"
       }
     }
   },
   "order": [
-    "footer"
+    "custom_footer_main"
   ]
 }

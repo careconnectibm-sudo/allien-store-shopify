@@ -81,22 +81,7 @@
           </div>
         </div>
 
-        <div class="sp-filter-group">
-          <h3 class="sp-filter-title">Status</h3>
-          <label class="sp-cat-item">
-            <input type="radio" name="sp-status" value="all" checked> All
-          </label>
-          <label class="sp-cat-item">
-            <input type="radio" name="sp-status" value="active"> Active only
-          </label>
-        </div>
-
-        <div class="sp-filter-group">
-          <h3 class="sp-filter-title">Type</h3>
-          <div id="sp-type-list" class="sp-cat-list"></div>
-        </div>
-
-        <button class="sp-clear-all" id="sp-clear-all">Reset all filters</button>
+        <button class="sp-clear-all" id="sp-clear-all">Reset all categories</button>
       </div>
     </aside>
 
@@ -455,18 +440,6 @@
       catList.appendChild(lbl);
     });
 
-    Array.from(typeSet).sort().forEach(type => {
-      const lbl = document.createElement('label');
-      lbl.className = 'sp-cat-item';
-      const label = { cps:'CPS (Sale %)', cpa:'CPA (Action)', cpl:'CPL (Lead)', cpl_lead:'CPL Lead' }[type] || type.toUpperCase();
-      lbl.innerHTML = `<input type="radio" name="sp-type" value="${type}"> ${label}`;
-      typeList.appendChild(lbl);
-    });
-    const allType = document.createElement('label');
-    allType.className = 'sp-cat-item';
-    allType.innerHTML = `<input type="radio" name="sp-type" value="all" checked> All Types`;
-    typeList.prepend(allType);
-
     // ── Build Category Pills ────────────────────────────────────
     const pillsList = document.getElementById('sp-pills-list');
     if (pillsList) {
@@ -504,9 +477,9 @@
       let list = stores.filter(s => {
         const qOk     = !state.q || s.merchant.toLowerCase().includes(state.q);
         const catOk   = state.cat === 'all' || s.categories.includes(state.cat);
-        const statOk  = state.status === 'all' || s.status === state.status;
-        const typeOk  = state.type === 'all' || s.type === state.type;
-        return qOk && catOk && statOk && typeOk;
+        // Always show only active stores
+        const statOk  = s.status === 'active';
+        return qOk && catOk && statOk;
       });
 
       list.sort((a, b) => {
@@ -545,10 +518,6 @@
           <div class="sp-card-body">
             <p class="sp-card-name">${s.merchant}</p>
             <p class="sp-card-cat">${catStr}</p>
-            <div class="sp-card-footer">
-              <span class="sp-card-payout">${s.payout}</span>
-              <span class="sp-card-status ${s.status}" title="${s.status}"></span>
-            </div>
           </div>
         `;
         grid.appendChild(a);
