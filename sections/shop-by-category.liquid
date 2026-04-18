@@ -1,0 +1,261 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════════
+  Section: Shop by Category
+  File:    sections/shop-by-category.liquid
+  Requires: assets/stores-data.js
+  ═══════════════════════════════════════════════════════════════
+  A responsive icon grid for store categories with real-time counts.
+{% endcomment %}
+
+{{ 'stores-data.js' | asset_url | script_tag }}
+
+<section
+  id="sbc-{{ section.id }}"
+  class="sbc-section"
+  style="
+    --sbc-bg: {{ section.settings.bg_color }};
+    --sbc-text: {{ section.settings.text_color }};
+    --sbc-accent: {{ section.settings.accent_color }};
+    padding-top: {{ section.settings.pad_top }}px;
+    padding-bottom: {{ section.settings.pad_bot }}px;
+  "
+>
+  <div class="sbc-container">
+    {%- if section.settings.heading != blank -%}
+      <div class="sbc-header">
+        <h2 class="sbc-heading">{{ section.settings.heading }}</h2>
+        {%- if section.settings.subheading != blank -%}
+          <p class="sbc-subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="sbc-grid" id="sbc-grid-{{ section.id }}">
+      <!-- Categories injected via JS -->
+    </div>
+  </div>
+</section>
+
+<style>
+.sbc-section {
+  background: var(--sbc-bg, #ffffff);
+  color: var(--sbc-text, #1a1a1a);
+}
+.sbc-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.sbc-header {
+  text-align: left;
+  margin-bottom: 40px;
+}
+.sbc-heading {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+.sbc-subheading {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.sbc-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .sbc-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .sbc-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+}
+@media (max-width: 480px) {
+  .sbc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.sbc-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.sbc-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--sbc-accent);
+  box-shadow: 0 12px 24px rgba(26, 115, 232, 0.1);
+}
+
+.sbc-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
+}
+.sbc-card:hover .sbc-icon {
+  transform: scale(1.15);
+}
+
+.sbc-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.sbc-count {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 500;
+}
+
+.sbc-card:hover .sbc-title { color: var(--sbc-accent); }
+</style>
+
+<script>
+(function() {
+  const SEC_ID = '{{ section.id }}';
+  const CATEGORY_MAP = {
+    'Fashion': '👔',
+    'Electronics': '💻',
+    'Beauty': '💄',
+    'Home': '🏠',
+    'Travel': '✈️',
+    'Food': '🍔',
+    'Education': '📚',
+    'Health': '💊',
+    'Finance': '💰',
+    'Services': '🛠️',
+    'Gaming': '🎮',
+    'Entertainment': '🎬'
+  };
+
+  function initCategories(stores) {
+    const grid = document.getElementById('sbc-grid-' + SEC_ID);
+    if (!grid) return;
+
+    // Count categories
+    const counts = {};
+    stores.forEach(s => {
+      s.categories.forEach(c => {
+        counts[c] = (counts[c] || 0) + 1;
+      });
+    });
+
+    const categories = Object.keys(counts).sort((a,b) => counts[b] - counts[a]).slice(0, 12);
+    const fragment = document.createDocumentFragment();
+
+    categories.forEach(cat => {
+      const card = document.createElement('a');
+      card.className = 'sbc-card';
+      card.href = `/pages/stores?cat=${encodeURIComponent(cat)}`;
+      
+      const icon = document.createElement('span');
+      icon.className = 'sbc-icon';
+      icon.textContent = CATEGORY_MAP[cat] || '🏷️';
+
+      const title = document.createElement('span');
+      title.className = 'sbc-title';
+      title.textContent = cat;
+
+      const count = document.createElement('span');
+      count.className = 'sbc-count';
+      count.textContent = counts[cat] + ' Stores';
+
+      card.appendChild(icon);
+      card.appendChild(title);
+      card.appendChild(count);
+      fragment.appendChild(card);
+    });
+
+    grid.appendChild(fragment);
+  }
+
+  function waitForData() {
+    if (window.STORES_DATA) {
+      initCategories(window.STORES_DATA);
+    } else {
+      setTimeout(waitForData, 100);
+    }
+  }
+
+  waitForData();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Shop by Category",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Browse stores by your favorite categories"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#1A73E8"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "pad_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "pad_bot",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Category",
+      "category": "Promotions"
+    }
+  ]
+}
+{% endschema %}

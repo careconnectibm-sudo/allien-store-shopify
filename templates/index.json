@@ -83,10 +83,22 @@
         "show_second_image": true,
         "show_quick_add": true,
         "bg_color": "#fdfdfd",
-        "text_color": "#1a1a1a",
-        "accent_color": "#e63946",
+        "text_color": "#121212",
+        "accent_color": "#1A73E8",
         "pad_top": 64,
         "pad_bot": 64
+      }
+    },
+    "shop_by_category_home": {
+      "type": "shop-by-category",
+      "settings": {
+        "heading": "Shop by Category",
+        "subheading": "Browse stores by your favorite categories",
+        "bg_color": "#ffffff",
+        "text_color": "#121212",
+        "accent_color": "#1A73E8",
+        "pad_top": 60,
+        "pad_bot": 60
       }
     },
     "featured_collection_yjxHNE": {
@@ -173,6 +185,7 @@
   },
   "order": [
     "image_banner_main",
+    "shop_by_category_home",
     "store_slider_home",
     "product_slider_home",
     "featured_collection_yjxHNE",
