@@ -33,6 +33,14 @@
     </div>
   </div>
 
+  <!-- ── Category Pills (New) ─────────────────────────────────── -->
+  <div class="sp-pills-bar">
+    <div class="sp-pills-inner" id="sp-pills-list">
+      <button class="sp-pill is-active" data-cat="all">All Categories</button>
+      <!-- Pills injected via JS -->
+    </div>
+  </div>
+
   <!-- ── Toolbar ──────────────────────────────────────────────── -->
   <div class="sp-toolbar">
     <div class="sp-toolbar-inner">
@@ -129,6 +137,40 @@
 }
 
 .sp-page { font-family: inherit; }
+
+/* Category Pills */
+.sp-pills-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--sp-border);
+  padding: 12px 0;
+  overflow: hidden;
+}
+.sp-pills-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sp-pills-inner::-webkit-scrollbar { display: none; }
+
+.sp-pill {
+  white-space: nowrap;
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 1.5px solid var(--sp-border);
+  background: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sp-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sp-pill:hover { border-color: var(--sp-accent); color: var(--sp-accent); }
+.sp-pill.is-active { background: var(--sp-accent); border-color: var(--sp-accent); color: #fff; }
 
 /* Hero */
 .sp-hero {
@@ -420,11 +462,42 @@
       lbl.innerHTML = `<input type="radio" name="sp-type" value="${type}"> ${label}`;
       typeList.appendChild(lbl);
     });
-    // Add "All" for type
     const allType = document.createElement('label');
     allType.className = 'sp-cat-item';
     allType.innerHTML = `<input type="radio" name="sp-type" value="all" checked> All Types`;
     typeList.prepend(allType);
+
+    // ── Build Category Pills ────────────────────────────────────
+    const pillsList = document.getElementById('sp-pills-list');
+    if (pillsList) {
+      Array.from(catSet).sort().forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'sp-pill';
+        btn.textContent = cat;
+        btn.dataset.cat = cat;
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.sp-pill').forEach(p => p.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          state.cat = cat;
+          // Also check the radio button in the sidebar
+          const rad = document.querySelector(`input[name="sp-cat"][value="${cat}"]`);
+          if (rad) rad.checked = true;
+          render();
+        });
+        pillsList.appendChild(btn);
+      });
+
+      // Special handling for 'All' pill
+      const allPill = pillsList.querySelector('[data-cat="all"]');
+      allPill && allPill.addEventListener('click', () => {
+        document.querySelectorAll('.sp-pill').forEach(p => p.classList.remove('is-active'));
+        allPill.classList.add('is-active');
+        state.cat = 'all';
+        const rad = document.querySelector(`input[name="sp-cat"][value="all"]`);
+        if (rad) rad.checked = true;
+        render();
+      });
+    }
 
     // ── Filter + Sort + Render ───────────────────────────────────
     function getFiltered() {

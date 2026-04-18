@@ -44,7 +44,6 @@
         "buttons"
       ],
       "settings": {
-        "image": "hero-offer-banner.png",
         "image_overlay_opacity": 40,
         "image_height": "medium",
         "image_behavior": "none",
