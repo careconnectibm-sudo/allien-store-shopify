@@ -1,0 +1,344 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════════
+  Section: Affiliate Store Slider (Marquee)
+  File:    sections/affiliate-store-slider.liquid
+  Requires: assets/stores-data.js
+  ═══════════════════════════════════════════════════════════════
+  An infinite scrolling logo marquee for affiliate partners.
+{% endcomment %}
+
+{{ 'stores-data.js' | asset_url | script_tag }}
+
+<section
+  id="ass-{{ section.id }}"
+  class="ass-section"
+  style="
+    --ass-bg: {{ section.settings.bg_color }};
+    --ass-text: {{ section.settings.text_color }};
+    --ass-accent: {{ section.settings.accent_color }};
+    --ass-logo-size: {{ section.settings.logo_size }}px;
+    --ass-speed: {{ section.settings.speed }}s;
+    padding-top: {{ section.settings.pad_top }}px;
+    padding-bottom: {{ section.settings.pad_bot }}px;
+  "
+>
+  <div class="ass-container">
+    {%- if section.settings.heading != blank -%}
+      <div class="ass-header">
+        <h2 class="ass-heading">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="ass-marquee-wrapper">
+      <div class="ass-marquee" id="ass-marquee-{{ section.id }}">
+        <!-- Logos injected via JS -->
+      </div>
+    </div>
+
+    {% if section.settings.show_view_all %}
+      <div class="ass-footer">
+        <a href="{{ section.settings.view_all_url | default: '/pages/stores' }}" class="ass-btn">
+          {{ section.settings.view_all_label }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.ass-section {
+  background: var(--ass-bg, #ffffff);
+  color: var(--ass-text, #1a1a1a);
+  overflow: hidden;
+}
+.ass-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.ass-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 0 20px;
+}
+.ass-heading {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  margin: 0;
+  color: var(--ass-text);
+}
+
+/* Marquee Logic */
+.ass-marquee-wrapper {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 40px;
+  padding: 20px 0;
+}
+
+/* Gradient Fades */
+.ass-marquee-wrapper::before,
+.ass-marquee-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.ass-marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--ass-bg), transparent);
+}
+.ass-marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--ass-bg), transparent);
+}
+
+.ass-marquee {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
+  min-width: 100%;
+  animation: ass-scroll var(--ass-speed, 30s) linear infinite;
+}
+
+@keyframes ass-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - 40px)); }
+}
+
+.ass-marquee-wrapper:hover .ass-marquee {
+  animation-play-state: paused;
+}
+
+.ass-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ass-logo-size);
+  height: var(--ass-logo-size);
+  transition: transform 0.3s ease;
+}
+.ass-item:hover {
+  transform: scale(1.1);
+}
+
+.ass-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ass-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+.ass-item:hover .ass-logo {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.ass-footer {
+  text-align: center;
+  margin-top: 40px;
+}
+.ass-btn {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ass-accent, #e63946);
+  text-decoration: none;
+  border-bottom: 2px solid var(--ass-accent);
+  padding-bottom: 4px;
+  transition: opacity 0.2s;
+}
+.ass-btn:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .ass-marquee-wrapper { gap: 20px; }
+  .ass-marquee { gap: 20px; }
+  @keyframes ass-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100% - 20px)); }
+  }
+}
+</style>
+
+<script>
+(function() {
+  const SEC_ID = '{{ section.id }}';
+  const MAX_LOGOS = {{ section.settings.max_logos | default: 15 }};
+
+  function initSlider(stores) {
+    const marquee = document.getElementById('ass-marquee-' + SEC_ID);
+    if (!marquee) return;
+
+    // Filter active stores and shuffle/pick top ones
+    const activeStores = stores.filter(s => s.status === 'active')
+      .sort(() => 0.5 - Math.random())
+      .slice(0, MAX_LOGOS);
+
+    const fragment = document.createDocumentFragment();
+
+    activeStores.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'ass-item';
+
+      const link = document.createElement('a');
+      link.className = 'ass-link';
+      link.href = s.url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer nofollow';
+      link.title = s.merchant;
+
+      const img = document.createElement('img');
+      img.src = s.logo;
+      img.alt = s.merchant;
+      img.className = 'ass-logo';
+      img.loading = 'lazy';
+      img.onerror = function() {
+        this.parentElement.parentElement.style.display = 'none';
+      };
+
+      link.appendChild(img);
+      item.appendChild(link);
+      fragment.appendChild(item);
+    });
+
+    marquee.appendChild(fragment);
+
+    // Clone for infinite effect
+    const clone = marquee.cloneNode(true);
+    clone.id = '';
+    marquee.parentElement.appendChild(clone);
+  }
+
+  function waitForData() {
+    if (window.STORES_DATA) {
+      initSlider(window.STORES_DATA);
+    } else {
+      setTimeout(waitForData, 100);
+    }
+  }
+
+  waitForData();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Affiliate Store Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Trusted Partners"
+    },
+    {
+      "type": "range",
+      "id": "max_logos",
+      "label": "Max logos to show",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "logo_size",
+      "label": "Logo Size (px)",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Animation Speed (seconds)",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View All Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View All Label",
+      "default": "View All 400+ Stores"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View All URL"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#e63946"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "pad_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "pad_bot",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Affiliate Store Slider",
+      "category": "Promotions"
+    }
+  ]
+}
+{% endschema %}
