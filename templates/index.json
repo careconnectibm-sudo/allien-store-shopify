@@ -9,6 +9,87 @@
  */
 {
   "sections": {
+    "image_banner_main": {
+      "type": "image-banner",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Megastore Special Offers",
+            "heading_size": "h0"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "Up to 50% Off on Premium Electronics & Partner Stores.",
+            "text_style": "subtitle"
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Now",
+            "button_link_1": "shopify:\/\/collections\/all",
+            "button_style_secondary_1": false,
+            "button_label_2": "View All Stores",
+            "button_link_2": "shopify:\/\/pages\/stores",
+            "button_style_secondary_2": true
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "buttons"
+      ],
+      "settings": {
+        "image": "hero-offer-banner.png",
+        "image_overlay_opacity": 40,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "store_slider_home": {
+      "type": "affiliate-store-slider",
+      "settings": {
+        "heading": "Our Trusted Partner Stores",
+        "max_logos": 20,
+        "logo_size": 80,
+        "speed": 35,
+        "show_view_all": true,
+        "view_all_label": "Explore All 400+ Stores",
+        "view_all_url": "shopify:\/\/pages\/stores",
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#e63946",
+        "pad_top": 40,
+        "pad_bot": 40
+      }
+    },
+    "product_slider_home": {
+      "type": "custom-product-slider",
+      "settings": {
+        "heading": "Featured Deals",
+        "subheading": "Top products from our affiliate network",
+        "collection": "all",
+        "max_products": 12,
+        "show_second_image": true,
+        "show_quick_add": true,
+        "bg_color": "#fdfdfd",
+        "text_color": "#1a1a1a",
+        "accent_color": "#e63946",
+        "pad_top": 64,
+        "pad_bot": 64
+      }
+    },
     "featured_collection_yjxHNE": {
       "type": "featured-collection",
       "settings": {
@@ -92,6 +173,9 @@
     }
   },
   "order": [
+    "image_banner_main",
+    "store_slider_home",
+    "product_slider_home",
     "featured_collection_yjxHNE",
     "custom_liquid_f7PkQh",
     "custom_liquid_4nrPKy",
