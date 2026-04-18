@@ -1,199 +1,318 @@
 {% comment %}
   ═══════════════════════════════════════════════════════════════
-  Section: Megastore Hero
+  Section: Megastore Advanced Hero
   File:    sections/megastore-hero.liquid
   Requires: assets/stores-data.js
   ═══════════════════════════════════════════════════════════════
-  A high-performance dark hero section with global search and stats.
+  An advanced, split-screen hero section with modern glassmorphism
+  and dynamic background overlays.
 {% endcomment %}
 
 {{ 'stores-data.js' | asset_url | script_tag }}
 
 <section
   id="msh-{{ section.id }}"
-  class="msh-section"
+  class="msh-adv-section"
   style="
     --msh-bg-1: {{ section.settings.bg_color_1 }};
     --msh-bg-2: {{ section.settings.bg_color_2 }};
-    --msh-text: {{ section.settings.text_color }};
     --msh-accent: {{ section.settings.accent_color }};
-    padding-top: {{ section.settings.pad_top }}px;
-    padding-bottom: {{ section.settings.pad_bot }}px;
+    --msh-text: {{ section.settings.text_color }};
   "
 >
+  <!-- Modern Background Overlays -->
+  <div class="msh-bg-blur msh-blur-1"></div>
+  <div class="msh-bg-blur msh-blur-2"></div>
+
   <div class="msh-container">
-    <div class="msh-content">
-      <h1 class="msh-title">{{ section.settings.title }}</h1>
-      <p class="msh-subtitle">{{ section.settings.subtitle }}</p>
+    <div class="msh-grid">
+      
+      <!-- Left Content -->
+      <div class="msh-left">
+        <h1 class="msh-title">{{ section.settings.title }}</h1>
+        <p class="msh-subtitle">{{ section.settings.subtitle }}</p>
 
-      <div class="msh-search-outer">
-        <form action="/" method="get" class="msh-search-form">
-          <input type="hidden" name="view" value="stores">
-          <svg class="msh-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input
-            type="text"
-            name="q"
-            class="msh-search-input"
-            placeholder="{{ section.settings.search_placeholder }}"
-            autocomplete="off"
-          >
-          <button type="submit" class="msh-search-btn">Search</button>
-        </form>
+        <div class="msh-search-outer">
+          <form action="/" method="get" class="msh-search-form">
+            <input type="hidden" name="view" value="stores">
+            <input 
+              type="text" 
+              name="q" 
+              class="msh-search-input" 
+              placeholder="{{ section.settings.search_placeholder }}"
+              autocomplete="off"
+            >
+            <button type="submit" class="msh-search-btn">Search</button>
+          </form>
+        </div>
+
+        <div class="msh-stats-row">
+          <div class="msh-stat">
+            <span class="msh-stat-num" id="msh-count-stores">245+</span>
+            <span class="msh-stat-label">Stores</span>
+          </div>
+          <div class="msh-stat">
+            <span class="msh-stat-num">{{ section.settings.stat_categories }}</span>
+            <span class="msh-stat-label">Categories</span>
+          </div>
+          <div class="msh-stat">
+            <span class="msh-stat-num">{{ section.settings.stat_commission }}</span>
+            <span class="msh-stat-label">Top Commission</span>
+          </div>
+        </div>
       </div>
 
-      <div class="msh-stats">
-        <div class="msh-stat-item">
-          <span class="msh-stat-val" id="msh-count-stores">400+</span>
-          <span class="msh-stat-label">Partner Brands</span>
-        </div>
-        <div class="msh-stat-sep">/</div>
-        <div class="msh-stat-item">
-          <span class="msh-stat-val">{{ section.settings.stat_2_val }}</span>
-          <span class="msh-stat-label">{{ section.settings.stat_2_label }}</span>
-        </div>
-        <div class="msh-stat-sep">/</div>
-        <div class="msh-stat-item">
-          <span class="msh-stat-val">{{ section.settings.stat_3_val }}</span>
-          <span class="msh-stat-label">{{ section.settings.stat_3_label }}</span>
+      <!-- Right Content (Floating Cards) -->
+      <div class="msh-right">
+        <div class="msh-cards-stack">
+          
+          <!-- Card 1: Myntra -->
+          <div class="msh-glass-card msh-card-1">
+            <div class="msh-card-logo">🛍️</div>
+            <div class="msh-card-info">
+              <span class="msh-brand-name">Myntra</span>
+              <span class="msh-brand-cat">Fashion</span>
+            </div>
+          </div>
+
+          <!-- Card 2: MakeMyTrip -->
+          <div class="msh-glass-card msh-card-2">
+            <div class="msh-card-logo">✈️</div>
+            <div class="msh-card-info">
+              <span class="msh-brand-name">MakeMyTrip</span>
+              <span class="msh-brand-cat">Travel</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Nykaa -->
+          <div class="msh-glass-card msh-card-3">
+            <div class="msh-card-logo">💄</div>
+            <div class="msh-card-info">
+              <span class="msh-brand-name">Nykaa</span>
+              <span class="msh-brand-cat">Beauty</span>
+            </div>
+          </div>
+
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 <style>
-.msh-section {
-  background: linear-gradient(135deg, var(--msh-bg-1) 0%, var(--msh-bg-2) 100%);
-  color: var(--msh-text, #ffffff);
+.msh-adv-section {
+  background-color: var(--msh-bg-1);
+  background-image: linear-gradient(135deg, var(--msh-bg-1) 0%, var(--msh-bg-2) 100%);
+  color: var(--msh-text);
+  padding: 100px 0;
   position: relative;
   overflow: hidden;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
 }
 
-/* Subtle background pattern */
-.msh-section::after {
-  content: "";
+/* Abstract Background Elements */
+.msh-bg-blur {
   position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 30px 30px;
-  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  z-index: 0;
+}
+.msh-blur-1 {
+  width: 400px;
+  height: 400px;
+  background: #1A73E8;
+  top: -100px;
+  left: -100px;
+}
+.msh-blur-2 {
+  width: 500px;
+  height: 500px;
+  background: #9d4edd;
+  bottom: -150px;
+  right: -100px;
 }
 
 .msh-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
   position: relative;
   z-index: 1;
 }
 
-.msh-content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+.msh-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 60px;
 }
 
+/* Left Content Styles */
+.msh-left {
+  max-width: 650px;
+}
 .msh-title {
-  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
   font-weight: 800;
-  line-height: 1.1;
-  margin: 0 0 16px;
-  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 24px;
+  letter-spacing: -0.03em;
+  color: #ffffff;
 }
 .msh-subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: 1.25rem;
+  line-height: 1.6;
   color: rgba(255,255,255,0.7);
   margin-bottom: 40px;
+  max-width: 500px;
 }
 
 .msh-search-outer {
-  max-width: 600px;
-  margin: 0 auto 60px;
+  margin-bottom: 60px;
 }
-
 .msh-search-form {
   display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: #fff;
   border-radius: 60px;
-  padding: 6px 6px 6px 20px;
-  transition: all 0.3s ease;
+  padding: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
-.msh-search-form:focus-within {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
-}
-
-.msh-search-icon {
-  color: rgba(255, 255, 255, 0.5);
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
 .msh-search-input {
   flex: 1;
   background: transparent;
   border: none;
-  color: #fff;
+  padding: 0 30px;
   font-size: 1.1rem;
-  padding: 12px 0;
+  color: #333;
   outline: none;
 }
-.msh-search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
 .msh-search-btn {
   background: var(--msh-accent);
   color: #fff;
   border: none;
-  padding: 12px 30px;
+  padding: 15px 40px;
   border-radius: 40px;
   font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: transform 0.2s, background 0.2s;
 }
 .msh-search-btn:hover {
-  opacity: 0.9;
+  transform: scale(1.05);
+  background: #1557b0;
 }
 
-.msh-stats {
+.msh-stats-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
+  gap: 40px;
 }
-.msh-stat-item {
+.msh-stat {
   display: flex;
   flex-direction: column;
 }
-.msh-stat-val {
-  font-size: 1.5rem;
+.msh-stat-num {
+  font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
 .msh-stat-label {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: rgba(255,255,255,0.5);
 }
-.msh-stat-sep {
+
+/* Right Content (Floating Cards) */
+.msh-right {
+  display: flex;
+  justify-content: flex-end;
+}
+.msh-cards-stack {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.msh-glass-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  animation: mshFloat 6s ease-in-out infinite;
+}
+.msh-card-1 { animation-delay: 0s; transform: translateX(-20px); }
+.msh-card-2 { animation-delay: -2s; transform: translateX(20px); }
+.msh-card-3 { animation-delay: -4s; transform: translateX(-10px); }
+
+@keyframes mshFloat {
+  0%, 100% { transform: translateY(0) translateX(-10px); }
+  50% { transform: translateY(-15px) translateX(10px); }
+}
+
+.msh-glass-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.02) !important;
+  z-index: 10;
+}
+
+.msh-card-logo {
+  width: 56px;
+  height: 56px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.5rem;
-  color: rgba(255,255,255,0.15);
-  font-weight: 300;
+}
+.msh-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.msh-brand-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+}
+.msh-brand-cat {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 4px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .msh-grid { grid-template-columns: 1fr; gap: 80px; text-align: center; }
+  .msh-left { margin: 0 auto; }
+  .msh-subtitle { margin-inline: auto; }
+  .msh-stats-row { justify-content: center; }
+  .msh-right { justify-content: center; }
+  .msh-cards-stack { max-width: 450px; }
 }
 
 @media (max-width: 600px) {
-  .msh-stats { flex-direction: column; gap: 20px; }
-  .msh-stat-sep { display: none; }
-  .msh-search-form { padding: 4px; border-radius: 12px; }
-  .msh-search-btn { padding: 10px 15px; }
-  .msh-search-icon { display: none; }
-  .msh-search-input { padding-left: 12px; font-size: 1rem; }
+  .msh-adv-section { padding: 60px 0; }
+  .msh-container { padding: 0 20px; }
+  .msh-search-form { flex-direction: column; border-radius: 20px; gap: 10px; }
+  .msh-search-btn { width: 100%; border-radius: 12px; }
+  .msh-stats-row { gap: 20px; flex-wrap: wrap; }
+  .msh-right { display: none; } /* Hide cards on smallest screens to save space */
 }
 </style>
 
@@ -218,7 +337,7 @@
 
 {% schema %}
 {
-  "name": "Megastore Hero",
+  "name": "Megastore Hero v2",
   "settings": [
     {
       "type": "text",
@@ -230,13 +349,13 @@
       "type": "text",
       "id": "subtitle",
       "label": "Subheading",
-      "default": "Discover 400+ partner stores across every category."
+      "default": "Find exclusive coupon codes & cashback deals from 245+ Indian brands."
     },
     {
       "type": "text",
       "id": "search_placeholder",
       "label": "Search Placeholder",
-      "default": "Search your favorite brands..."
+      "default": "Search Flipkart, Myntra, Zomato..."
     },
     {
       "type": "header",
@@ -244,42 +363,30 @@
     },
     {
       "type": "text",
-      "id": "stat_2_val",
-      "label": "Stat 2 Value",
-      "default": "15,000+"
+      "id": "stat_categories",
+      "label": "Categories Count",
+      "default": "20"
     },
     {
       "type": "text",
-      "id": "stat_2_label",
-      "label": "Stat 2 Label",
-      "default": "Deals Today"
-    },
-    {
-      "type": "text",
-      "id": "stat_3_val",
-      "label": "Stat 3 Value",
-      "default": "1M+"
-    },
-    {
-      "type": "text",
-      "id": "stat_3_label",
-      "label": "Stat 3 Label",
-      "default": "Happy Users"
+      "id": "stat_commission",
+      "label": "Top Commission",
+      "default": "36%"
     },
     {
       "type": "header",
-      "content": "Aesthetics"
+      "content": "Colors"
     },
     {
       "type": "color",
       "id": "bg_color_1",
-      "label": "Gradient Background 1",
+      "label": "BG Gradient 1",
       "default": "#1a1a2e"
     },
     {
       "type": "color",
       "id": "bg_color_2",
-      "label": "Gradient Background 2",
+      "label": "BG Gradient 2",
       "default": "#16213e"
     },
     {
@@ -293,33 +400,11 @@
       "id": "accent_color",
       "label": "Accent Color",
       "default": "#1A73E8"
-    },
-    {
-      "type": "header",
-      "content": "Section Spacing"
-    },
-    {
-      "type": "range",
-      "id": "pad_top",
-      "label": "Padding Top",
-      "min": 40,
-      "max": 200,
-      "step": 10,
-      "default": 100
-    },
-    {
-      "type": "range",
-      "id": "pad_bot",
-      "label": "Padding Bottom",
-      "min": 40,
-      "max": 200,
-      "step": 10,
-      "default": 100
     }
   ],
   "presets": [
     {
-      "name": "Megastore Hero",
+      "name": "Megastore Hero v2",
       "category": "Hero"
     }
   ]

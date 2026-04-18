@@ -177,15 +177,7 @@
   text-overflow: ellipsis;
 }
 
-.ass-payout {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: #16a34a;
-  background: #f0fdf4;
-  padding: 2px 8px;
-  border-radius: 4px;
-  display: inline-block;
-}
+
 
 .ass-footer {
   text-align: center;
@@ -263,13 +255,8 @@
       name.className = 'ass-name';
       name.textContent = s.merchant;
 
-      const payout = document.createElement('span');
-      payout.className = 'ass-payout';
-      payout.textContent = s.payout;
-
       logoWrap.appendChild(img);
       info.appendChild(name);
-      info.appendChild(payout);
       link.appendChild(logoWrap);
       link.appendChild(info);
       item.appendChild(link);
