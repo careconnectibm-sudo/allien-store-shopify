@@ -1,0 +1,546 @@
+{% comment %}
+  ═══════════════════════════════════════════════════════════════
+  Template: Stores Page
+  File:     templates/page.stores.liquid   (or page.stores.json)
+  Requires: assets/stores-data.js
+  Create page in Shopify Admin → Pages → "Stores"
+  Set template to "page.stores"
+  ═══════════════════════════════════════════════════════════════
+{% endcomment %}
+
+{{ 'stores-data.js' | asset_url | script_tag }}
+
+<div class="sp-page" id="stores-page">
+
+  <!-- ── Hero Banner ──────────────────────────────────────────── -->
+  <div class="sp-hero">
+    <div class="sp-hero-inner">
+      <p class="sp-hero-eyebrow">🛍️ Affiliate Partners</p>
+      <h1 class="sp-hero-title">All Partner Stores</h1>
+      <p class="sp-hero-sub">Browse <strong id="sp-total-count">400+</strong> stores across every category. Click to shop &amp; earn cashback.</p>
+
+      <div class="sp-hero-search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          type="search"
+          id="sp-search"
+          placeholder="Search stores… e.g. Amazon, Nike, Zara"
+          autocomplete="off"
+          aria-label="Search stores"
+        >
+        <button class="sp-search-clear" id="sp-search-clear" aria-label="Clear search" style="display:none">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toolbar ──────────────────────────────────────────────── -->
+  <div class="sp-toolbar">
+    <div class="sp-toolbar-inner">
+      <div class="sp-toolbar-left">
+        <span class="sp-result-label" id="sp-result-label">Loading…</span>
+      </div>
+      <div class="sp-toolbar-right">
+        <select class="sp-sort-select" id="sp-sort">
+          <option value="az">A → Z</option>
+          <option value="za">Z → A</option>
+          <option value="payout_high">Highest Payout</option>
+        </select>
+        <div class="sp-view-toggle">
+          <button class="sp-view-btn is-active" data-view="grid" aria-label="Grid view" title="Grid">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </button>
+          <button class="sp-view-btn" data-view="list" aria-label="List view" title="List">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main Layout ──────────────────────────────────────────── -->
+  <div class="sp-main">
+
+    <!-- Sidebar filters -->
+    <aside class="sp-sidebar" id="sp-sidebar">
+      <div class="sp-sidebar-inner">
+
+        <div class="sp-filter-group">
+          <h3 class="sp-filter-title">Category</h3>
+          <div id="sp-cat-list" class="sp-cat-list">
+            <label class="sp-cat-item">
+              <input type="radio" name="sp-cat" value="all" checked> All Categories
+            </label>
+          </div>
+        </div>
+
+        <div class="sp-filter-group">
+          <h3 class="sp-filter-title">Status</h3>
+          <label class="sp-cat-item">
+            <input type="radio" name="sp-status" value="all" checked> All
+          </label>
+          <label class="sp-cat-item">
+            <input type="radio" name="sp-status" value="active"> Active only
+          </label>
+        </div>
+
+        <div class="sp-filter-group">
+          <h3 class="sp-filter-title">Type</h3>
+          <div id="sp-type-list" class="sp-cat-list"></div>
+        </div>
+
+        <button class="sp-clear-all" id="sp-clear-all">Reset all filters</button>
+      </div>
+    </aside>
+
+    <!-- Store grid -->
+    <div class="sp-content">
+      <div class="sp-grid" id="sp-grid"></div>
+      <div class="sp-empty" id="sp-empty" style="display:none">
+        <div class="sp-empty-inner">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          <h3>No stores found</h3>
+          <p>Try a different search or filter.</p>
+          <button class="sp-reset-btn" id="sp-reset">Reset Filters</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Mobile filter toggle -->
+  <button class="sp-mobile-filter-btn" id="sp-mobile-filter-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    Filters
+  </button>
+  <div class="sp-mobile-overlay" id="sp-mobile-overlay"></div>
+
+</div>
+
+<style>
+/* ─── Stores Page ───────────────────────────────────────────── */
+:root {
+  --sp-accent:  #e63946;
+  --sp-text:    #1a1a1a;
+  --sp-muted:   #777;
+  --sp-border:  #e8e8e8;
+  --sp-bg:      #f7f7f7;
+  --sp-white:   #ffffff;
+  --sp-radius:  10px;
+}
+
+.sp-page { font-family: inherit; }
+
+/* Hero */
+.sp-hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+  color: #fff; padding: 60px 20px 48px;
+}
+.sp-hero-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+.sp-hero-eyebrow { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.6); margin: 0 0 8px; }
+.sp-hero-title { font-size: clamp(1.8rem,4vw,2.8rem); font-weight: 800; margin: 0 0 12px; }
+.sp-hero-sub { font-size: .95rem; color: rgba(255,255,255,.75); margin: 0 0 28px; }
+.sp-hero-sub strong { color: #fff; }
+
+.sp-hero-search {
+  position: relative; max-width: 520px; margin: 0 auto;
+}
+.sp-hero-search svg {
+  position: absolute; left: 18px; top: 50%;
+  transform: translateY(-50%); color: rgba(255,255,255,.5); pointer-events: none;
+}
+.sp-hero-search input {
+  width: 100%; padding: 15px 48px 15px 50px;
+  border-radius: 50px; border: none;
+  background: rgba(255,255,255,.12); backdrop-filter: blur(8px);
+  color: #fff; font-size: .95rem; outline: none;
+  border: 1.5px solid rgba(255,255,255,.2);
+  transition: border-color .2s, background .2s;
+  box-sizing: border-box;
+}
+.sp-hero-search input::placeholder { color: rgba(255,255,255,.5); }
+.sp-hero-search input:focus {
+  background: rgba(255,255,255,.18);
+  border-color: rgba(255,255,255,.5);
+}
+.sp-search-clear {
+  position: absolute; right: 16px; top: 50%;
+  transform: translateY(-50%); background: none; border: none;
+  color: rgba(255,255,255,.6); font-size: 1rem; cursor: pointer; padding: 4px 6px;
+}
+
+/* Toolbar */
+.sp-toolbar {
+  background: var(--sp-white); border-bottom: 1px solid var(--sp-border);
+  position: sticky; top: 0; z-index: 100;
+}
+.sp-toolbar-inner {
+  max-width: 1400px; margin: 0 auto; padding: 0 20px;
+  display: flex; align-items: center;
+  justify-content: space-between; height: 52px; gap: 16px;
+}
+.sp-result-label { font-size: .8rem; color: var(--sp-muted); }
+.sp-toolbar-right { display: flex; align-items: center; gap: 12px; }
+.sp-sort-select {
+  padding: 7px 12px; border-radius: 6px;
+  border: 1.5px solid var(--sp-border); background: #fff;
+  font-size: .8rem; color: var(--sp-text); cursor: pointer; outline: none;
+}
+.sp-view-toggle { display: flex; border: 1.5px solid var(--sp-border); border-radius: 6px; overflow: hidden; }
+.sp-view-btn {
+  padding: 6px 10px; border: none; background: #fff;
+  color: #aaa; cursor: pointer; transition: all .2s;
+}
+.sp-view-btn.is-active { background: var(--sp-accent); color: #fff; }
+
+/* Main layout */
+.sp-main {
+  max-width: 1400px; margin: 0 auto;
+  padding: 24px 20px 60px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 900px) { .sp-main { grid-template-columns: 1fr; } }
+
+/* Sidebar */
+.sp-sidebar {
+  background: var(--sp-white); border-radius: var(--sp-radius);
+  border: 1px solid var(--sp-border);
+  position: sticky; top: 60px;
+}
+.sp-sidebar-inner { padding: 20px; }
+.sp-filter-group { margin-bottom: 24px; }
+.sp-filter-title {
+  font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #aaa; margin: 0 0 10px;
+}
+.sp-cat-list { display: flex; flex-direction: column; gap: 2px; }
+.sp-cat-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 6px; border-radius: 5px; cursor: pointer;
+  font-size: .83rem; color: var(--sp-text);
+  transition: background .15s;
+}
+.sp-cat-item:hover { background: var(--sp-bg); }
+.sp-cat-item input { accent-color: var(--sp-accent); cursor: pointer; }
+.sp-clear-all {
+  width: 100%; padding: 9px; border-radius: 6px;
+  border: 1.5px solid var(--sp-border); background: var(--sp-bg);
+  font-size: .78rem; font-weight: 600; cursor: pointer;
+  color: var(--sp-muted); transition: all .2s;
+}
+.sp-clear-all:hover { border-color: var(--sp-accent); color: var(--sp-accent); background: #fff; }
+
+@media (max-width: 900px) {
+  .sp-sidebar {
+    position: fixed; top: 0; left: -280px; height: 100vh; width: 260px;
+    z-index: 1001; overflow-y: auto; border-radius: 0;
+    transition: left .3s ease; box-shadow: 4px 0 24px rgba(0,0,0,.12);
+  }
+  .sp-sidebar.is-open { left: 0; }
+  .sp-mobile-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.4); z-index: 1000;
+  }
+  .sp-mobile-overlay.is-open { display: block; }
+}
+
+/* Grid view */
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 14px;
+}
+.sp-grid.is-list {
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+/* Store card — grid mode */
+.sp-card {
+  background: var(--sp-white); border-radius: var(--sp-radius);
+  border: 1.5px solid var(--sp-border);
+  overflow: hidden; transition: all .25s;
+  animation: spFadeIn .3s ease both;
+  text-decoration: none; color: var(--sp-text);
+  display: flex; flex-direction: column;
+}
+.sp-card:hover {
+  border-color: var(--sp-accent);
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  transform: translateY(-3px);
+}
+@keyframes spFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.sp-card-logo-wrap {
+  aspect-ratio: 2/1; background: #f9f9f9;
+  display: flex; align-items: center; justify-content: center;
+  padding: 12px; overflow: hidden;
+}
+.sp-card-logo {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain; display: block;
+  transition: transform .3s;
+}
+.sp-card:hover .sp-card-logo { transform: scale(1.06); }
+.sp-card-body { padding: 10px 12px 12px; flex: 1; }
+.sp-card-name {
+  font-size: .8rem; font-weight: 700;
+  margin: 0 0 4px; line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sp-card-cat {
+  font-size: .65rem; color: var(--sp-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin: 0 0 6px;
+}
+.sp-card-footer {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 4px;
+}
+.sp-card-payout {
+  font-size: .7rem; font-weight: 700;
+  color: #16a34a; background: #f0fdf4;
+  padding: 2px 6px; border-radius: 4px;
+}
+.sp-card-status {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.sp-card-status.active   { background: #22c55e; }
+.sp-card-status.inactive { background: #d1d5db; }
+
+/* List mode overrides */
+.sp-grid.is-list .sp-card {
+  flex-direction: row; align-items: center;
+  gap: 0; border-radius: 8px;
+}
+.sp-grid.is-list .sp-card-logo-wrap {
+  width: 120px; flex-shrink: 0;
+  aspect-ratio: unset; height: 64px;
+  border-right: 1px solid var(--sp-border); border-radius: 0;
+}
+.sp-grid.is-list .sp-card-body {
+  display: flex; align-items: center;
+  gap: 12px; flex: 1; padding: 12px 16px;
+}
+.sp-grid.is-list .sp-card-name { font-size: .88rem; white-space: normal; margin-bottom: 2px; }
+.sp-grid.is-list .sp-card-cat  { margin: 0; flex: 1; }
+.sp-grid.is-list .sp-card-footer { flex-shrink: 0; }
+@media (max-width: 600px) {
+  .sp-grid.is-list .sp-card-logo-wrap { width: 80px; }
+  .sp-grid.is-list .sp-card-body { gap: 8px; }
+}
+
+/* Empty */
+.sp-empty { grid-column: 1/-1; }
+.sp-empty-inner {
+  text-align: center; padding: 64px 20px;
+  color: #bbb; border: 2px dashed #e8e8e8;
+  border-radius: 12px;
+}
+.sp-empty-inner h3 { color: var(--sp-text); margin: 16px 0 8px; }
+.sp-empty-inner p  { margin: 0 0 20px; font-size: .9rem; }
+.sp-reset-btn {
+  padding: 10px 24px; border-radius: 50px;
+  border: 1.5px solid var(--sp-accent); background: transparent;
+  color: var(--sp-accent); font-size: .82rem; font-weight: 700;
+  cursor: pointer; transition: all .2s;
+}
+.sp-reset-btn:hover { background: var(--sp-accent); color: #fff; }
+
+/* Mobile filter button */
+.sp-mobile-filter-btn {
+  display: none;
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 28px; border-radius: 50px;
+  background: var(--sp-accent); color: #fff;
+  border: none; font-size: .85rem; font-weight: 700;
+  cursor: pointer; z-index: 999;
+  box-shadow: 0 4px 20px rgba(230,57,70,.4);
+  align-items: center; gap: 8px;
+}
+@media (max-width: 900px) { .sp-mobile-filter-btn { display: flex; } }
+</style>
+
+<script>
+(function () {
+  function waitForData(cb) {
+    if (window.STORES_DATA) { cb(window.STORES_DATA); return; }
+    const t = setInterval(() => { if (window.STORES_DATA) { clearInterval(t); cb(window.STORES_DATA); } }, 50);
+  }
+
+  waitForData(function (stores) {
+    // ── DOM refs ─────────────────────────────────────────────────
+    const grid       = document.getElementById('sp-grid');
+    const emptyEl    = document.getElementById('sp-empty');
+    const resultLabel= document.getElementById('sp-result-label');
+    const totalCount = document.getElementById('sp-total-count');
+    const searchEl   = document.getElementById('sp-search');
+    const clearBtn   = document.getElementById('sp-search-clear');
+    const sortEl     = document.getElementById('sp-sort');
+    const catList    = document.getElementById('sp-cat-list');
+    const typeList   = document.getElementById('sp-type-list');
+    const viewBtns   = document.querySelectorAll('.sp-view-btn');
+    const clearAll   = document.getElementById('sp-clear-all');
+    const resetBtn   = document.getElementById('sp-reset');
+    const mobileBtn  = document.getElementById('sp-mobile-filter-btn');
+    const sidebar    = document.getElementById('sp-sidebar');
+    const overlay    = document.getElementById('sp-mobile-overlay');
+
+    if (!grid) return;
+
+    // ── State ────────────────────────────────────────────────────
+    let state = { q: '', cat: 'all', status: 'all', type: 'all', sort: 'az', view: 'grid' };
+
+    if (totalCount) totalCount.textContent = stores.length + '+';
+
+    // ── Build category filters ───────────────────────────────────
+    const catSet = new Set(), typeSet = new Set();
+    stores.forEach(s => {
+      s.categories.forEach(c => catSet.add(c));
+      typeSet.add(s.type);
+    });
+
+    Array.from(catSet).sort().forEach(cat => {
+      const lbl = document.createElement('label');
+      lbl.className = 'sp-cat-item';
+      lbl.innerHTML = `<input type="radio" name="sp-cat" value="${cat}"> ${cat}`;
+      catList.appendChild(lbl);
+    });
+
+    Array.from(typeSet).sort().forEach(type => {
+      const lbl = document.createElement('label');
+      lbl.className = 'sp-cat-item';
+      const label = { cps:'CPS (Sale %)', cpa:'CPA (Action)', cpl:'CPL (Lead)', cpl_lead:'CPL Lead' }[type] || type.toUpperCase();
+      lbl.innerHTML = `<input type="radio" name="sp-type" value="${type}"> ${label}`;
+      typeList.appendChild(lbl);
+    });
+    // Add "All" for type
+    const allType = document.createElement('label');
+    allType.className = 'sp-cat-item';
+    allType.innerHTML = `<input type="radio" name="sp-type" value="all" checked> All Types`;
+    typeList.prepend(allType);
+
+    // ── Filter + Sort + Render ───────────────────────────────────
+    function getFiltered() {
+      let list = stores.filter(s => {
+        const qOk     = !state.q || s.merchant.toLowerCase().includes(state.q);
+        const catOk   = state.cat === 'all' || s.categories.includes(state.cat);
+        const statOk  = state.status === 'all' || s.status === state.status;
+        const typeOk  = state.type === 'all' || s.type === state.type;
+        return qOk && catOk && statOk && typeOk;
+      });
+
+      list.sort((a, b) => {
+        if (state.sort === 'az') return a.merchant.localeCompare(b.merchant);
+        if (state.sort === 'za') return b.merchant.localeCompare(a.merchant);
+        if (state.sort === 'payout_high') {
+          const pA = parseFloat(a.payout) || 0;
+          const pB = parseFloat(b.payout) || 0;
+          return pB - pA;
+        }
+        return 0;
+      });
+      return list;
+    }
+
+    function render() {
+      const list = getFiltered();
+      grid.innerHTML = '';
+      grid.className = 'sp-grid' + (state.view === 'list' ? ' is-list' : '');
+
+      list.forEach((s, i) => {
+        const a = document.createElement('a');
+        a.className = 'sp-card';
+        a.href = s.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer nofollow';
+        a.title = s.merchant;
+        a.style.animationDelay = Math.min(i * 12, 300) + 'ms';
+
+        const catStr = s.categories.join(', ');
+        a.innerHTML = `
+          <div class="sp-card-logo-wrap">
+            <img class="sp-card-logo" src="${s.logo}" alt="${s.merchant}" loading="lazy"
+              onerror="this.parentElement.innerHTML='<span style=\\'font-size:.7rem;font-weight:700;color:#aaa;text-align:center;\\'>${s.merchant.slice(0,12)}</span>'">
+          </div>
+          <div class="sp-card-body">
+            <p class="sp-card-name">${s.merchant}</p>
+            <p class="sp-card-cat">${catStr}</p>
+            <div class="sp-card-footer">
+              <span class="sp-card-payout">${s.payout}</span>
+              <span class="sp-card-status ${s.status}" title="${s.status}"></span>
+            </div>
+          </div>
+        `;
+        grid.appendChild(a);
+      });
+
+      const none = list.length === 0;
+      emptyEl.style.display = none ? 'block' : 'none';
+      grid.style.display     = none ? 'none'  : 'grid';
+      resultLabel.textContent = `${list.length} of ${stores.length} stores`;
+    }
+
+    // ── Event listeners ──────────────────────────────────────────
+    let debounce;
+    searchEl && searchEl.addEventListener('input', () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => {
+        state.q = searchEl.value.trim().toLowerCase();
+        clearBtn && (clearBtn.style.display = state.q ? 'block' : 'none');
+        render();
+      }, 180);
+    });
+
+    clearBtn && clearBtn.addEventListener('click', () => {
+      searchEl.value = ''; state.q = '';
+      clearBtn.style.display = 'none'; render();
+    });
+
+    document.querySelectorAll('input[name="sp-cat"]').forEach(r =>
+      r.addEventListener('change', () => { state.cat = r.value; render(); })
+    );
+    document.querySelectorAll('input[name="sp-status"]').forEach(r =>
+      r.addEventListener('change', () => { state.status = r.value; render(); })
+    );
+    document.addEventListener('change', e => {
+      if (e.target.name === 'sp-type') { state.type = e.target.value; render(); }
+    });
+
+    sortEl && sortEl.addEventListener('change', () => { state.sort = sortEl.value; render(); });
+
+    viewBtns.forEach(btn => btn.addEventListener('click', () => {
+      viewBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      state.view = btn.dataset.view;
+      render();
+    }));
+
+    function resetAllFilters() {
+      state = { q: '', cat: 'all', status: 'all', type: 'all', sort: state.sort, view: state.view };
+      if (searchEl) { searchEl.value = ''; clearBtn && (clearBtn.style.display = 'none'); }
+      document.querySelectorAll('input[name="sp-cat"][value="all"]').forEach(r => r.checked = true);
+      document.querySelectorAll('input[name="sp-status"][value="all"]').forEach(r => r.checked = true);
+      document.querySelectorAll('input[name="sp-type"][value="all"]').forEach(r => r.checked = true);
+      render();
+    }
+
+    clearAll  && clearAll.addEventListener('click', resetAllFilters);
+    resetBtn  && resetBtn.addEventListener('click', resetAllFilters);
+
+    // Mobile sidebar toggle
+    function openSidebar()  { sidebar.classList.add('is-open'); overlay.classList.add('is-open'); }
+    function closeSidebar() { sidebar.classList.remove('is-open'); overlay.classList.remove('is-open'); }
+    mobileBtn && mobileBtn.addEventListener('click', openSidebar);
+    overlay   && overlay.addEventListener('click', closeSidebar);
+
+    render();
+  });
+})();
+</script>
