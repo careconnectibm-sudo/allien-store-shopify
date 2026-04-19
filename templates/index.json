@@ -15,16 +15,12 @@
         "title": "Shop Smart, Earn Every Time",
         "subtitle": "Discover 400+ partner stores across every category.",
         "search_placeholder": "Search your favorite brands...",
-        "stat_2_val": "15,000+",
-        "stat_2_label": "Deals Today",
-        "stat_3_val": "1M+",
-        "stat_3_label": "Happy Users",
+        "stat_categories": "20",
+        "stat_commission": "36%",
         "bg_color_1": "#1a1a2e",
         "bg_color_2": "#16213e",
         "text_color": "#ffffff",
-        "accent_color": "#1A73E8",
-        "pad_top": 100,
-        "pad_bot": 100
+        "accent_color": "#1a73e8"
       }
     },
     "store_slider_home": {
@@ -37,9 +33,9 @@
         "show_view_all": true,
         "view_all_label": "Explore All 400+ Stores",
         "view_all_url": "/?view=stores",
-        "bg_color": "#ffffff",
+        "bg_color": "#f8f9fa",
         "text_color": "#1a1a1a",
-        "accent_color": "#1A73E8",
+        "accent_color": "#1a73e8",
         "pad_top": 40,
         "pad_bot": 40
       }
@@ -49,9 +45,9 @@
       "settings": {
         "heading": "Shop by Category",
         "subheading": "Browse stores by your favorite categories",
-        "bg_color": "#ffffff",
+        "bg_color": "#2cae60",
         "text_color": "#121212",
-        "accent_color": "#1A73E8",
+        "accent_color": "#1a73e8",
         "pad_top": 60,
         "pad_bot": 60
       }
@@ -71,7 +67,7 @@
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "outline",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": false,
@@ -88,7 +84,7 @@
       "type": "custom-liquid",
       "settings": {
         "custom_liquid": "<iframe src='https://inrdeals.com/embed/deals?user=all665437315' width='100%' height='1140' frameborder='0' allowTransparency='true'> </iframe>",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-modern-vibrant",
         "padding_top": 40,
         "padding_bottom": 52
       }
