@@ -33,7 +33,7 @@
         "show_view_all": true,
         "view_all_label": "Explore All 400+ Stores",
         "view_all_url": "/?view=stores",
-        "bg_color": "#f8f9fa",
+        "bg_color": "#26e3e0",
         "text_color": "#1a1a1a",
         "accent_color": "#1a73e8",
         "pad_top": 40,
