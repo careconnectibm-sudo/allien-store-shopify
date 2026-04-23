@@ -20,6 +20,10 @@
           <h2 class="footer-logo-text">{{ shop.name }}</h2>
         {%- endif -%}
         <p class="brand-desc">{{ section.settings.description }}</p>
+        <div class="footer-contact">
+          <span class="contact-icon">📧</span>
+          <a href="mailto:alliengalaxy071@gmail.com" class="contact-email">alliengalaxy071@gmail.com</a>
+        </div>
       </div>
 
       <!-- Column 2: Quick Links -->
@@ -94,6 +98,20 @@
   opacity: 0.7;
   max-width: 320px;
 }
+.footer-contact {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+.contact-email {
+  color: #fc2779;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+.contact-email:hover { opacity: 0.8; }
 .footer-title {
   font-size: 1.1rem;
   font-weight: 700;
