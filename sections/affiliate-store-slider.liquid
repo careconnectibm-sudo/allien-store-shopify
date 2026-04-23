@@ -50,6 +50,7 @@
   background: var(--ass-bg, #ffffff);
   color: var(--ass-text, #1a1a1a);
   overflow: hidden;
+  position: relative;
 }
 .ass-container {
   max-width: 1400px;
@@ -125,15 +126,15 @@
   width: calc(var(--ass-logo-size) + 40px);
   padding: 15px;
   background: var(--ass-bg);
-  border: 1px solid rgba(0,0,0,0.05);
-  border-radius: 12px;
+  border: 1.5px solid rgba(252, 39, 121, 0.08);
+  border-radius: 14px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
 }
 .ass-item:hover {
-  transform: translateY(-5px);
-  border-color: var(--ass-accent);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transform: translateY(-6px);
+  border-color: #fc2779;
+  box-shadow: 0 12px 28px rgba(252,39,121,0.15);
 }
 
 .ass-link {
@@ -185,18 +186,19 @@
 }
 .ass-btn {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--ass-accent, #e63946);
+  color: #fc2779;
   text-decoration: none;
-  border-bottom: 2px solid var(--ass-accent);
+  border-bottom: 2px solid #fc2779;
   padding-bottom: 4px;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, color 0.2s;
 }
 .ass-btn:hover {
-  opacity: 0.7;
+  opacity: 0.8;
+  color: #e91e8c;
 }
 
 @media (max-width: 768px) {
@@ -353,7 +355,7 @@
       "type": "color",
       "id": "accent_color",
       "label": "Accent Color",
-      "default": "#e63946"
+      "default": "#fc2779"
     },
     {
       "type": "header",

@@ -93,8 +93,8 @@
   "order": [
     "megastore_hero_main",
     "store_slider_home",
-    "shop_by_category_home",
     "featured_collection_yjxHNE",
-    "custom_liquid_f7PkQh"
+    "custom_liquid_f7PkQh",
+    "shop_by_category_home"
   ]
 }

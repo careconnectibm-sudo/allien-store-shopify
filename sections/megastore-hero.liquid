@@ -1,412 +1,526 @@
 {% comment %}
   ═══════════════════════════════════════════════════════════════
-  Section: Megastore Advanced Hero
+  Section: Megastore Premium Offer Slider
   File:    sections/megastore-hero.liquid
-  Requires: assets/stores-data.js
   ═══════════════════════════════════════════════════════════════
-  An advanced, split-screen hero section with modern glassmorphism
-  and dynamic background overlays.
+  Deeply Integrated Hero Slider with 12 unique partner brands.
 {% endcomment %}
 
-{{ 'stores-data.js' | asset_url | script_tag }}
+<section id="moh-{{ section.id }}" class="moh-section">
 
-<section
-  id="msh-{{ section.id }}"
-  class="msh-adv-section"
-  style="
-    --msh-bg-1: {{ section.settings.bg_color_1 }};
-    --msh-bg-2: {{ section.settings.bg_color_2 }};
-    --msh-accent: {{ section.settings.accent_color }};
-    --msh-text: {{ section.settings.text_color }};
-  "
->
-  <!-- Modern Background Overlays -->
-  <div class="msh-bg-blur msh-blur-1"></div>
-  <div class="msh-bg-blur msh-blur-2"></div>
+  <!-- Progress Bar Overlay -->
+  <div class="moh-progress-bar" id="moh-progress-{{ section.id }}"></div>
 
-  <div class="msh-container">
-    <div class="msh-grid">
-      
-      <!-- Left Content -->
-      <div class="msh-left">
-        <h1 class="msh-title">{{ section.settings.title }}</h1>
-        <p class="msh-subtitle">{{ section.settings.subtitle }}</p>
+  <div class="moh-slider-outer">
+    <div class="moh-track" id="moh-track-{{ section.id }}">
 
-        <div class="msh-search-outer">
-          <form action="/" method="get" class="msh-search-form">
-            <input type="hidden" name="view" value="stores">
-            <input 
-              type="text" 
-              name="q" 
-              class="msh-search-input" 
-              placeholder="{{ section.settings.search_placeholder }}"
-              autocomplete="off"
-            >
-            <button type="submit" class="msh-search-btn">Search</button>
-          </form>
-        </div>
-
-        <div class="msh-stats-row">
-          <div class="msh-stat">
-            <span class="msh-stat-num" id="msh-count-stores">245+</span>
-            <span class="msh-stat-label">Stores</span>
+      <!-- Slide 1: Amazon India -->
+      <div class="moh-slide moh-slide-1">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">🔥 TOP RATED STORE</span>
+            <h1 class="moh-title">Everything You <span class="moh-hl">Love</span>,<br>Plus Extra Rewards.</h1>
+            <p class="moh-subtitle">Experience the ultimate shopping spree on Amazon. Get exclusive <strong>12% Cashback</strong> on every purchase you make.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>12%</span><small>Cashback</small></div>
+              <div class="moh-stat-item"><span>10M+</span><small>Products</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.amazon.in&id=all665437315&subid=" target="_blank" class="moh-cta">Shop on Amazon <span class="moh-icon">🚀</span></a>
           </div>
-          <div class="msh-stat">
-            <span class="msh-stat-num">{{ section.settings.stat_categories }}</span>
-            <span class="msh-stat-label">Categories</span>
-          </div>
-          <div class="msh-stat">
-            <span class="msh-stat-num">{{ section.settings.stat_commission }}</span>
-            <span class="msh-stat-label">Top Commission</span>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/341759/amazon-.in-logo-400-x-200.png" alt="Amazon"></div>
+              <div class="moh-offer-label">Up to 12% Payout</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Right Content (Floating Cards) -->
-      <div class="msh-right">
-        <div class="msh-cards-stack">
-          
-          <!-- Card 1: Myntra -->
-          <div class="msh-glass-card msh-card-1">
-            <div class="msh-card-logo">🛍️</div>
-            <div class="msh-card-info">
-              <span class="msh-brand-name">Myntra</span>
-              <span class="msh-brand-cat">Fashion</span>
+      <!-- Slide 2: Acko -->
+      <div class="moh-slide moh-slide-2">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">🛡️ SMART INSURANCE</span>
+            <h1 class="moh-title">Car Insurance<br>That <span class="moh-hl">Pays You Back.</span></h1>
+            <p class="moh-subtitle">Switch to Acko for zero-hassle car insurance and grab a massive <strong>40% Cashback</strong> reward via INRDeals.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>40%</span><small>Earnings</small></div>
+              <div class="moh-stat-item"><span>2 Min</span><small>Policy</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cpm_car&url=https%3A%2F%2Fwww.acko.com%2Flp%2Fnew-car-comprehensive&id=all665437315&subid=" target="_blank" class="moh-cta">Get Acko Quote <span class="moh-icon">🚗</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/514628/output-onlinepngtools.png" alt="Acko"></div>
+              <div class="moh-offer-label">40% Instant Reward</div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Card 2: MakeMyTrip -->
-          <div class="msh-glass-card msh-card-2">
-            <div class="msh-card-logo">✈️</div>
-            <div class="msh-card-info">
-              <span class="msh-brand-name">MakeMyTrip</span>
-              <span class="msh-brand-cat">Travel</span>
+      <!-- Slide 3: Myntra -->
+      <div class="moh-slide moh-slide-3">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">👗 TRENDING FASHION</span>
+            <h1 class="moh-title">Redefine Style<br>With <span class="moh-hl">Myntra Luxury.</span></h1>
+            <p class="moh-subtitle">Explore latest trends from global brands and earn <strong>9% Rewards</strong> on your total cart value.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>9%</span><small>Reward</small></div>
+              <div class="moh-stat-item"><span>500+</span><small>Brands</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.myntra.com&id=all665437315&subid=" target="_blank" class="moh-cta">Explore Style <span class="moh-icon">✨</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/328661/myntra--logo-400x200--png.png" alt="Myntra"></div>
+              <div class="moh-offer-label">9% App Rewards</div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- Card 3: Nykaa -->
-          <div class="msh-glass-card msh-card-3">
-            <div class="msh-card-logo">💄</div>
-            <div class="msh-card-info">
-              <span class="msh-brand-name">Nykaa</span>
-              <span class="msh-brand-cat">Beauty</span>
+      <!-- Slide 4: Nykaa -->
+      <div class="moh-slide moh-slide-4">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">💄 BEAUTY PASS</span>
+            <h1 class="moh-title">Your Daily <span class="moh-hl">Glow</span><br>Starts Right Here.</h1>
+            <p class="moh-subtitle">Nykaa brings you genuine beauty and wellness. Shop today for a steady <strong>6.8% Cashback</strong> on all hauls.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>6.8%</span><small>Profit</small></div>
+              <div class="moh-stat-item"><span>100%</span><small>Original</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.nykaa.com%2F&id=all665437315&subid=" target="_blank" class="moh-cta">Shop Beauty <span class="moh-icon">💎</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/395770/Nykaa-logo.png" alt="Nykaa"></div>
+              <div class="moh-offer-label">6.8% Bonus</div>
             </div>
           </div>
+        </div>
+      </div>
 
+      <!-- Slide 5: MakeMyTrip -->
+      <div class="moh-slide moh-slide-5">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">✈️ TRAVEL DEALS</span>
+            <h1 class="moh-title">Book Your <span class="moh-hl">Dream</span><br>Flight & Hotel.</h1>
+            <p class="moh-subtitle">Planning a trip? Use MakeMyTrip for easy bookings and get flat <strong>₹250 Cashback</strong> automatically.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>₹250</span><small>Flat Off</small></div>
+              <div class="moh-stat-item"><span>Global</span><small>Airports</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=internationl_hotel&url=https%3A%2F%2Fwww.makemytrip.com%2Fhotels-international%2F&id=all665437315&subid=" target="_blank" class="moh-cta">Book Now <span class="moh-icon">🗺️</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/395192/make-my-trip-logo.png" alt="MMT"></div>
+              <div class="moh-offer-label">₹250 Refund</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 6: Ajio -->
+      <div class="moh-slide moh-slide-6">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">👜 AJIO TRENDS</span>
+            <h1 class="moh-title">World's Best <span class="moh-hl">Labels</span><br>Now Within Reach.</h1>
+            <p class="moh-subtitle">Shop global runways on Ajio. Get an incredible <strong>13% Profit</strong> on every fashion purchase.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>13%</span><small>Return</small></div>
+              <div class="moh-stat-item"><span>Daily</span><small>Sales</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.ajio.com%2F&id=all665437315&subid=" target="_blank" class="moh-cta">Shop Ajio <span class="moh-icon">👜</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/418611/Ajio_400x200_logo-png.png" alt="Ajio"></div>
+              <div class="moh-offer-label">13% Bonus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 7: Star Health -->
+      <div class="moh-slide moh-slide-7">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">🏥 HEALTH FIRST</span>
+            <h1 class="moh-title">Protect Family<br>With <span class="moh-hl">Star Health.</span></h1>
+            <p class="moh-subtitle">Secure your family's health and earn massive <strong>₹3500 Cashback</strong> on every policy activation.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>₹3500</span><small>CASHBACK</small></div>
+              <div class="moh-stat-item"><span>10k+</span><small>Hospitals</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.starhealth.in%2Flp%2Fhealth-insurance-v1%2F&id=all665437315&subid=" target="_blank" class="moh-cta">Get Covered <span class="moh-icon">❤️</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/487474/images.png" alt="Star Health"></div>
+              <div class="moh-offer-label">₹3500 Reward</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 8: Croma -->
+      <div class="moh-slide moh-slide-8">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">⚡ TECH HUB</span>
+            <h1 class="moh-title">Latest Gadgets<br>at <span class="moh-hl">Best Prices.</span></h1>
+            <p class="moh-subtitle">Shop electronics at Croma and get <strong>4% Extra Cashback</strong> on top of all existing discounts.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>4%</span><small>Extra</small></div>
+              <div class="moh-stat-item"><span>Top</span><small>Service</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.croma.com%2F&id=all665437315&subid=" target="_blank" class="moh-cta">Shop Tech <span class="moh-icon">⚡</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/406052/croma_logo.png" alt="Croma"></div>
+              <div class="moh-offer-label">4% Gains</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 9: Udemy -->
+      <div class="moh-slide moh-slide-9">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">🎓 UPSKILL NOW</span>
+            <h1 class="moh-title">Learn Anything<br>On <span class="moh-hl">Udemy Today.</span></h1>
+            <p class="moh-subtitle">Start your journey with 210,000+ courses and get <strong>9.75% Cashback</strong> on your total learning haul.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>9.75%</span><small>Reward</small></div>
+              <div class="moh-stat-item"><span>Life</span><small>Access</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.udemy.com%2F&id=all665437315&subid=" target="_blank" class="moh-cta">Start Learning <span class="moh-icon">🧠</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/395793/udemy-logo.png" alt="Udemy"></div>
+              <div class="moh-offer-label">9.75% Bonus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 10: Air India -->
+      <div class="moh-slide moh-slide-10">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">🛫 THE MAHARAJA</span>
+            <h1 class="moh-title">Fly With Pride<br>On <span class="moh-hl">Air India.</span></h1>
+            <p class="moh-subtitle">Experience global hospitality with domestic ease. Book flights and get <strong>₹440 Cashback</strong> instantly.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>₹440</span><small>Return</small></div>
+              <div class="moh-stat-item"><span>24/7</span><small>Flights</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.airindia.com%2F&id=all665437315&subid=" target="_blank" class="moh-cta">Book Flight <span class="moh-icon">🛫</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/6387/air-india.jpeg" alt="Air India"></div>
+              <div class="moh-offer-label">₹440 Bonus</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 11: Kotak -->
+      <div class="moh-slide moh-slide-11">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">💰 DIGITAL BANK</span>
+            <h1 class="moh-title">Open Account<br>in <span class="moh-hl">5 Minutes.</span></h1>
+            <p class="moh-subtitle">Switch to Kotak 811 Zero Balance banking and get a fixed <strong>₹500 Reward</strong> for activation.</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>₹500</span><small>CASHBACK</small></div>
+              <div class="moh-stat-item"><span>V-KYC</span><small>Enabled</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cpl&url=https%3A%2F%2Fwww.kotak811.com&id=all665437315&subid=" target="_blank" class="moh-cta">Open Bank <span class="moh-icon">💰</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/397086/kotak-logo400x200.png" alt="Kotak"></div>
+              <div class="moh-offer-label">₹500 Payout</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 12: Hostinger -->
+      <div class="moh-slide moh-slide-12">
+        <div class="moh-container">
+          <div class="moh-content-left">
+            <span class="moh-badge">🌐 WEB HOSTING</span>
+            <h1 class="moh-title">Launch Brand<br>With <span class="moh-hl">Hostinger.</span></h1>
+            <p class="moh-subtitle">Fast, secure web hosting for your projects. Grab a massive <strong>58% Cashback</strong> — the highest rate!</p>
+            <div class="moh-stats">
+              <div class="moh-stat-item"><span>58%</span><small>Returns</small></div>
+              <div class="moh-stat-item"><span>FREE</span><small>Domain</small></div>
+            </div>
+            <a href="https://inr.deals/track?src=stores-api&campaign=cps&url=https%3A%2F%2Fwww.hostinger.com%2Fin&id=all665437315&subid=" target="_blank" class="moh-cta">Launch Site <span class="moh-icon">🚀</span></a>
+          </div>
+          <div class="moh-content-right">
+            <div class="moh-brand-showcase">
+              <div class="moh-logo-wrap"><img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/394981/Hostinger-LOGO.png" alt="Hostinger"></div>
+              <div class="moh-offer-label">58% Bonus</div>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
+
+  <!-- Navigation -->
+  <button class="moh-nav moh-prev" id="moh-prev-{{ section.id }}" aria-label="Previous">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="moh-nav moh-next" id="moh-next-{{ section.id }}" aria-label="Next">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+
+  <!-- Dots -->
+  <div class="moh-dots" id="moh-dots-{{ section.id }}">
+    {% for i in (1..12) %}
+      <button class="moh-dot {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}"></button>
+    {% endfor %}
+  </div>
+
 </section>
 
 <style>
-.msh-adv-section {
-  background-color: var(--msh-bg-1);
-  background-image: linear-gradient(135deg, var(--msh-bg-1) 0%, var(--msh-bg-2) 100%);
-  color: var(--msh-text);
-  padding: 100px 0;
+/* ─── Base Styles ─── */
+.moh-section {
   position: relative;
   overflow: hidden;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-}
-
-/* Abstract Background Elements */
-.msh-bg-blur {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.4;
-  z-index: 0;
-}
-.msh-blur-1 {
-  width: 400px;
-  height: 400px;
-  background: #1A73E8;
-  top: -100px;
-  left: -100px;
-}
-.msh-blur-2 {
-  width: 500px;
-  height: 500px;
-  background: #9d4edd;
-  bottom: -150px;
-  right: -100px;
-}
-
-.msh-container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 40px;
-  position: relative;
-  z-index: 1;
-}
-
-.msh-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  align-items: center;
-  gap: 60px;
-}
-
-/* Left Content Styles */
-.msh-left {
-  max-width: 650px;
-}
-.msh-title {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  margin: 0 0 24px;
-  letter-spacing: -0.03em;
+  background: #1a1030;
   color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
 }
-.msh-subtitle {
-  font-size: 1.25rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 40px;
-  max-width: 500px;
+.moh-section *, .moh-section *::before, .moh-section *::after { box-sizing: border-box; }
+
+.moh-progress-bar {
+  position: absolute;
+  top: 0; left: 0; height: 4px;
+  background: #fc2779;
+  width: 0%; z-index: 100;
+  transition: width linear;
 }
 
-.msh-search-outer {
-  margin-bottom: 60px;
-}
-.msh-search-form {
+.moh-slider-outer { overflow: hidden; width: 100%; position: relative; }
+.moh-track {
   display: flex;
-  background: #fff;
-  border-radius: 60px;
-  padding: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-.msh-search-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  padding: 0 30px;
-  font-size: 1.1rem;
-  color: #333;
-  outline: none;
-}
-.msh-search-btn {
-  background: var(--msh-accent);
-  color: #fff;
-  border: none;
-  padding: 15px 40px;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.2s;
-}
-.msh-search-btn:hover {
-  transform: scale(1.05);
-  background: #1557b0;
-}
-
-.msh-stats-row {
-  display: flex;
-  gap: 40px;
-}
-.msh-stat {
-  display: flex;
-  flex-direction: column;
-}
-.msh-stat-num {
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-.msh-stat-label {
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.5);
-}
-
-/* Right Content (Floating Cards) */
-.msh-right {
-  display: flex;
-  justify-content: flex-end;
-}
-.msh-cards-stack {
-  position: relative;
+  transition: transform 0.6s cubic-bezier(0.645, 0.045, 0.355, 1);
+  will-change: transform;
   width: 100%;
-  max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
-.msh-glass-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 20px 24px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-  animation: mshFloat 6s ease-in-out infinite;
-}
-.msh-card-1 { animation-delay: 0s; transform: translateX(-20px); }
-.msh-card-2 { animation-delay: -2s; transform: translateX(20px); }
-.msh-card-3 { animation-delay: -4s; transform: translateX(-10px); }
-
-@keyframes mshFloat {
-  0%, 100% { transform: translateY(0) translateX(-10px); }
-  50% { transform: translateY(-15px) translateX(10px); }
-}
-
-.msh-glass-card:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.02) !important;
-  z-index: 10;
-}
-
-.msh-card-logo {
-  width: 56px;
-  height: 56px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 16px;
+.moh-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  padding: 50px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  position: relative;
+  min-height: 480px;
 }
-.msh-card-info {
-  flex: 1;
+
+/* ─── Vibrant Effect Gradients ─── */
+.moh-slide-1 { background: linear-gradient(135deg, #101820 0%, #232f3e 100%); }
+.moh-slide-2 { background: linear-gradient(135deg, #003399 0%, #2874f0 100%); }
+.moh-slide-3 { background: linear-gradient(135deg, #7b1fa2 0%, #fc2779 100%); }
+.moh-slide-4 { background: linear-gradient(135deg, #c2185b 0%, #ff5252 100%); }
+.moh-slide-5 { background: linear-gradient(135deg, #003580 0%, #006aff 100%); }
+.moh-slide-6 { background: linear-gradient(135deg, #9b1b30 0%, #d32f2f 100%); }
+.moh-slide-7 { background: linear-gradient(135deg, #1b5e20 0%, #43a047 100%); }
+.moh-slide-8 { background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%); }
+.moh-slide-9 { background: linear-gradient(135deg, #e65100 0%, #f57c00 100%); }
+.moh-slide-10 { background: linear-gradient(135deg, #b71c1c 0%, #c62828 100%); }
+.moh-slide-11 { background: linear-gradient(135deg, #004d40 0%, #00695c 100%); }
+.moh-slide-12 { background: linear-gradient(135deg, #4527a0 0%, #673ab7 100%); }
+
+.moh-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
   display: flex;
-  flex-direction: column;
-}
-.msh-brand-name {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: #fff;
-}
-.msh-brand-cat {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.6);
-  margin-bottom: 4px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
 }
 
-/* Responsive */
-@media (max-width: 1100px) {
-  .msh-grid { grid-template-columns: 1fr; gap: 80px; text-align: center; }
-  .msh-left { margin: 0 auto; }
-  .msh-subtitle { margin-inline: auto; }
-  .msh-stats-row { justify-content: center; }
-  .msh-right { justify-content: center; }
-  .msh-cards-stack { max-width: 450px; }
+.moh-content-left { flex: 1; max-width: 600px; text-align: left; }
+.moh-content-right { flex-shrink: 0; }
+
+.moh-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; margin-bottom: 20px;
+  color: #fff; text-transform: uppercase;
 }
 
-@media (max-width: 600px) {
-  .msh-adv-section { padding: 60px 0; }
-  .msh-container { padding: 0 20px; }
-  .msh-search-form { flex-direction: column; border-radius: 20px; gap: 10px; }
-  .msh-search-btn { width: 100%; border-radius: 12px; }
-  .msh-stats-row { gap: 20px; flex-wrap: wrap; }
-  .msh-right { display: none; } /* Hide cards on smallest screens to save space */
+.moh-title {
+  font-size: clamp(26px, 4.5vw, 50px);
+  font-weight: 900; line-height: 1.1;
+  margin: 0 0 16px; color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+.moh-hl { color: #ffeb3b; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); }
+
+.moh-subtitle {
+  font-size: 17px; line-height: 1.6;
+  color: rgba(255,255,255,0.9); margin-bottom: 30px;
+  max-width: 500px;
+}
+.moh-subtitle strong { color: #fff; border-bottom: 2px solid #ffeb3b; }
+
+.moh-stats { display: flex; gap: 30px; margin-bottom: 30px; }
+.moh-stat-item span { font-size: 26px; font-weight: 900; color: #ffffff; display: block; line-height: 1; margin-bottom: 4px; }
+.moh-stat-item small { font-size: 12px; color: rgba(255,255,255,0.6); text-transform: uppercase; }
+
+.moh-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #ffffff; color: #1a1030;
+  padding: 16px 36px; border-radius: 14px;
+  font-weight: 800; text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.moh-cta:hover { transform: translateY(-5px) scale(1.02); background: #ffeb3b; color: #1a1030; box-shadow: 0 20px 40px rgba(255, 235, 59, 0.3); }
+
+.moh-brand-showcase {
+  background: #fff; padding: 30px;
+  border-radius: 32px; border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  text-align: center;
+}
+.moh-logo-wrap {
+  width: 180px; height: 90px;
+  background: #fff; border: 1px solid #f0f0f0;
+  border-radius: 16px; margin-bottom: 15px;
+  display: flex; align-items: center; justify-content: center; padding: 15px;
+}
+.moh-logo-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.moh-offer-label { font-weight: 800; color: #1a1030; font-size: 15px; }
+
+/* ─── Navigation ─── */
+.moh-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 50px; height: 50px; 
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 50%; color: #ffffff;
+  cursor: pointer; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.moh-nav:hover { background: #fc2779; color: #fff; border-color: #fc2779; transform: translateY(-50%) scale(1.1); box-shadow: 0 0 20px rgba(252, 39, 121, 0.4); }
+.moh-prev { left: 20px; }
+.moh-next { right: 20px; }
+
+.moh-dots {
+  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 10;
+}
+.moh-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.25); border: none; cursor: pointer;
+  padding: 0; transition: all 0.3s;
+}
+.moh-dot.is-active { background: #fc2779; width: 30px; border-radius: 5px; box-shadow: 0 0 15px rgba(252, 39, 121, 0.5); }
+
+/* ─── Mobile ─── */
+@media (max-width: 1024px) {
+  .moh-container { flex-direction: column; text-align: center; gap: 30px; padding: 0 24px; }
+  .moh-content-left { width: 100%; display: flex; flex-direction: column; align-items: center; max-width: 100%; }
+  .moh-nav { display: none; }
+  .moh-slide { padding: 40px 0; min-height: 520px; }
+  .moh-stats { justify-content: center; gap: 20px; }
+}
+@media (max-width: 640px) {
+  .moh-title { font-size: 26px; }
+  .moh-subtitle { font-size: 14px; margin-bottom: 24px; }
+  .moh-logo-wrap { width: 150px; height: 75px; }
+  .moh-stat-item span { font-size: 22px; }
+  .moh-cta { padding: 14px 28px; width: 100%; justify-content: center; font-size: 14px; }
+  .moh-slide { min-height: 500px; }
 }
 </style>
 
 <script>
 (function() {
-  function updateCount(stores) {
-    const el = document.getElementById('msh-count-stores');
-    if (el) el.textContent = stores.length + '+';
+  const SEC_ID = '{{ section.id }}';
+  const track = document.getElementById('moh-track-' + SEC_ID);
+  const dots = document.querySelectorAll('#moh-dots-' + SEC_ID + ' .moh-dot');
+  const prog = document.getElementById('moh-progress-' + SEC_ID);
+  let current = 0;
+  const total = 12;
+  const delay = 5000;
+  let interval;
+
+  function update() {
+    if (!track) return;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((dot, idx) => dot.classList.toggle('is-active', idx === current));
+    resetProgress();
   }
 
-  function waitForData() {
-    if (window.STORES_DATA) {
-      updateCount(window.STORES_DATA);
-    } else {
-      setTimeout(waitForData, 100);
-    }
+  function resetProgress() {
+    if (!prog) return;
+    prog.style.transition = 'none';
+    prog.style.width = '0%';
+    setTimeout(() => {
+      prog.style.transition = `width ${delay}ms linear`;
+      prog.style.width = '100%';
+    }, 50);
   }
 
-  waitForData();
+  function next() { current = (current + 1) % total; update(); }
+  function prev() { current = (current - 1 + total) % total; update(); }
+
+  const nextBtn = document.getElementById('moh-next-' + SEC_ID);
+  const prevBtn = document.getElementById('moh-prev-' + SEC_ID);
+
+  if (nextBtn) nextBtn.addEventListener('click', () => { next(); startAuto(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { prev(); startAuto(); });
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      current = parseInt(e.target.dataset.index);
+      update();
+      startAuto();
+    });
+  });
+
+  function startAuto() { clearInterval(interval); interval = setInterval(next, delay); }
+
+  startAuto();
+  update();
 })();
 </script>
 
 {% schema %}
 {
-  "name": "Megastore Hero v2",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Heading",
-      "default": "Shop Smart, Earn Every Time"
-    },
-    {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Subheading",
-      "default": "Find exclusive coupon codes & cashback deals from 245+ Indian brands."
-    },
-    {
-      "type": "text",
-      "id": "search_placeholder",
-      "label": "Search Placeholder",
-      "default": "Search Flipkart, Myntra, Zomato..."
-    },
-    {
-      "type": "header",
-      "content": "Stats"
-    },
-    {
-      "type": "text",
-      "id": "stat_categories",
-      "label": "Categories Count",
-      "default": "20"
-    },
-    {
-      "type": "text",
-      "id": "stat_commission",
-      "label": "Top Commission",
-      "default": "36%"
-    },
-    {
-      "type": "header",
-      "content": "Colors"
-    },
-    {
-      "type": "color",
-      "id": "bg_color_1",
-      "label": "BG Gradient 1",
-      "default": "#1a1a2e"
-    },
-    {
-      "type": "color",
-      "id": "bg_color_2",
-      "label": "BG Gradient 2",
-      "default": "#16213e"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent Color",
-      "default": "#1A73E8"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Megastore Hero v2",
-      "category": "Hero"
-    }
-  ]
+  "name": "Offer Banner Slider v2",
+  "settings": [],
+  "presets": [{ "name": "Offer Banner Slider v2" }]
 }
 {% endschema %}

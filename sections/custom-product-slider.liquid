@@ -173,13 +173,15 @@
   flex-direction: column;
   gap: 15px;
   background: #fff;
-  border: 1px solid #eee;
-  border-radius: 8px;
+  border: 1.5px solid #eee;
+  border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
 }
 .cps-product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  border-color: rgba(252,39,121,0.3);
+  box-shadow: 0 12px 28px rgba(252,39,121,0.1);
 }
 
 .cps-image-wrap {
@@ -219,8 +221,15 @@
   font-weight: 700;
   text-transform: uppercase;
 }
-.cps-badge.sale { background: #e63946; color: #fff; }
-.cps-badge.new { background: #1a1a1a; color: #fff; }
+.cps-badge.sale {
+  background: linear-gradient(90deg, #fc2779, #e91e8c);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(252,39,121,0.4);
+}
+.cps-badge.new {
+  background: #2874f0;
+  color: #fff;
+}
 
 .cps-quick-add {
   position: absolute;
@@ -228,24 +237,26 @@
   left: 10px;
   right: 10px;
   padding: 10px;
-  background: rgba(255,255,255,0.9);
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  background: rgba(255,255,255,0.95);
+  border: 1.5px solid #e0c8d8;
+  border-radius: 8px;
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transform: translateY(100%);
   opacity: 0;
   transition: all 0.3s ease;
+  color: #fc2779;
 }
 .cps-image-wrap:hover .cps-quick-add {
   transform: translateY(0);
   opacity: 1;
 }
 .cps-quick-add:hover {
-  background: var(--cps-accent);
+  background: linear-gradient(90deg, #fc2779, #e91e8c);
   color: #fff;
-  border-color: var(--cps-accent);
+  border-color: #fc2779;
+  box-shadow: 0 4px 16px rgba(252,39,121,0.35);
 }
 
 .cps-info {
@@ -263,22 +274,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.cps-price {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
-}
-.cps-price-current { font-weight: 700; color: var(--cps-accent); }
-.cps-price-compare { text-decoration: line-through; color: #999; }
+.cps-price { display: flex; justify-content: center; align-items: center; gap: 10px; font-size: 0.9rem; }
+.cps-price-current { font-weight: 800; color: #fc2779; }
+.cps-price-compare { text-decoration: line-through; color: #bbb; font-size: 0.8rem; }
 
 /* Navigation */
 .cps-nav-btn {
   position: absolute;
   z-index: 10;
   background: #fff;
-  border: 1px solid #ddd;
+  border: 1.5px solid #e0c8d8;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -286,15 +291,18 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
+  color: #fc2779;
 }
 .cps-prev { left: -22px; }
 .cps-next { right: -22px; }
 .cps-nav-btn:hover {
-  background: var(--cps-accent);
+  background: linear-gradient(90deg, #fc2779, #e91e8c);
   color: #fff;
-  border-color: var(--cps-accent);
+  border-color: #fc2779;
+  box-shadow: 0 6px 20px rgba(252,39,121,0.35);
+  transform: scale(1.1);
 }
 @media (max-width: 768px) {
   .cps-nav-btn { display: none; }
@@ -420,7 +428,7 @@
       "type": "color",
       "id": "accent_color",
       "label": "Accent Color",
-      "default": "#e63946"
+      "default": "#fc2779"
     },
     {
       "type": "header",

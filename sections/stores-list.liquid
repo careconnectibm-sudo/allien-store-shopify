@@ -112,13 +112,15 @@
 <style>
 /* ─── Stores Page ───────────────────────────────────────────── */
 :root {
-  --sp-accent:  #e63946;
+  --sp-accent:  #fc2779;
+  --sp-accent2: #2874f0;
   --sp-text:    #1a1a1a;
   --sp-muted:   #777;
-  --sp-border:  #e8e8e8;
-  --sp-bg:      #f7f7f7;
+  --sp-border:  #e8e0ed;
+  --sp-bg:      #faf9fc;
   --sp-white:   #ffffff;
   --sp-radius:  10px;
+  --sp-green:   #26a541;
 }
 
 .sp-page { font-family: inherit; }
@@ -154,13 +156,36 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-.sp-pill:hover { border-color: var(--sp-accent); color: var(--sp-accent); }
-.sp-pill.is-active { background: var(--sp-accent); border-color: var(--sp-accent); color: #fff; }
+.sp-pill:hover { border-color: var(--sp-accent); color: var(--sp-accent); background: #fff0f6; }
+.sp-pill.is-active {
+  background: linear-gradient(90deg, #fc2779, #e91e8c);
+  border-color: #fc2779;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(252,39,121,0.3);
+}
 
 /* Hero */
 .sp-hero {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+  background: linear-gradient(135deg, #1a1030 0%, #2d1b69 55%, #1a1030 100%);
   color: #fff; padding: 60px 20px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.sp-hero::before {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(252,39,121,0.4) 0%, transparent 70%);
+  top: -100px; right: 10%;
+  pointer-events: none;
+}
+.sp-hero::after {
+  content: '';
+  position: absolute;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(40,116,240,0.3) 0%, transparent 70%);
+  bottom: -80px; left: 5%;
+  pointer-events: none;
 }
 .sp-hero-inner { max-width: 800px; margin: 0 auto; text-align: center; }
 .sp-hero-eyebrow { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.6); margin: 0 0 8px; }
@@ -217,7 +242,10 @@
   padding: 6px 10px; border: none; background: #fff;
   color: #aaa; cursor: pointer; transition: all .2s;
 }
-.sp-view-btn.is-active { background: var(--sp-accent); color: #fff; }
+.sp-view-btn.is-active {
+  background: linear-gradient(90deg, #fc2779, #e91e8c);
+  color: #fff;
+}
 
 /* Main layout */
 .sp-main {
@@ -257,7 +285,7 @@
   font-size: .78rem; font-weight: 600; cursor: pointer;
   color: var(--sp-muted); transition: all .2s;
 }
-.sp-clear-all:hover { border-color: var(--sp-accent); color: var(--sp-accent); background: #fff; }
+.sp-clear-all:hover { border-color: var(--sp-accent); color: var(--sp-accent); background: #fff0f6; }
 
 @media (max-width: 900px) {
   .sp-sidebar {
@@ -330,14 +358,14 @@
 }
 .sp-card-payout {
   font-size: .7rem; font-weight: 700;
-  color: #16a34a; background: #f0fdf4;
+  color: var(--sp-green, #26a541); background: #f0fdf4;
   padding: 2px 6px; border-radius: 4px;
 }
 .sp-card-status {
   width: 7px; height: 7px; border-radius: 50%;
   flex-shrink: 0;
 }
-.sp-card-status.active   { background: #22c55e; }
+.sp-card-status.active   { background: #26a541; }
 .sp-card-status.inactive { background: #d1d5db; }
 
 /* List mode overrides */
@@ -377,7 +405,12 @@
   color: var(--sp-accent); font-size: .82rem; font-weight: 700;
   cursor: pointer; transition: all .2s;
 }
-.sp-reset-btn:hover { background: var(--sp-accent); color: #fff; }
+.sp-reset-btn:hover {
+  background: linear-gradient(90deg, #fc2779, #e91e8c);
+  border-color: #fc2779;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(252,39,121,0.3);
+}
 
 /* Mobile filter button */
 .sp-mobile-filter-btn {
@@ -385,13 +418,27 @@
   position: fixed; bottom: 24px; left: 50%;
   transform: translateX(-50%);
   padding: 12px 28px; border-radius: 50px;
-  background: var(--sp-accent); color: #fff;
+  background: linear-gradient(90deg, #fc2779, #e91e8c);
+  color: #fff;
   border: none; font-size: .85rem; font-weight: 700;
   cursor: pointer; z-index: 999;
-  box-shadow: 0 4px 20px rgba(230,57,70,.4);
+  box-shadow: 0 4px 24px rgba(252,39,121,.45);
   align-items: center; gap: 8px;
+  white-space: nowrap;
 }
 @media (max-width: 900px) { .sp-mobile-filter-btn { display: flex; } }
+
+/* ── Mobile 2×2 Grid (INRDeals products) ───────────────────── */
+@media (max-width: 640px) {
+  .sp-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .sp-card-body { padding: 8px 10px 10px; }
+  .sp-card-name { font-size: .75rem; }
+  .sp-card-cat { display: none; }
+  .sp-card-logo-wrap { aspect-ratio: 3/2; padding: 10px; }
+}
 </style>
 
 <script>
