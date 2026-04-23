@@ -202,12 +202,28 @@
 }
 
 @media (max-width: 768px) {
-  .ass-marquee-wrapper { gap: 20px; }
-  .ass-marquee { gap: 20px; }
-  @keyframes ass-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(calc(-100% - 20px)); }
+  .ass-marquee-wrapper { 
+    display: block; 
+    overflow: visible;
   }
+  .ass-marquee-wrapper::before, .ass-marquee-wrapper::after { display: none; }
+  
+  .ass-marquee { 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+    animation: none;
+    width: 100%;
+  }
+  /* Hide the clone on mobile to avoid double grid */
+  .ass-marquee-wrapper .ass-marquee:nth-child(n+2) {
+    display: none;
+  }
+  
+  .ass-item { width: 100%; padding: 12px; }
+  .ass-logo-wrap { height: 60px; margin-bottom: 8px; }
+  .ass-name { font-size: 0.75rem; }
 }
 </style>
 

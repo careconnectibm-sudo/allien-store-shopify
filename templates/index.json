@@ -33,9 +33,9 @@
         "show_view_all": true,
         "view_all_label": "Explore All 400+ Stores",
         "view_all_url": "/?view=stores",
-        "bg_color": "#26e3e0",
+        "bg_color": "#ffffff",
         "text_color": "#1a1a1a",
-        "accent_color": "#1a73e8",
+        "accent_color": "#fc2779",
         "pad_top": 40,
         "pad_bot": 40
       }
@@ -45,9 +45,9 @@
       "settings": {
         "heading": "Shop by Category",
         "subheading": "Browse stores by your favorite categories",
-        "bg_color": "#2cae60",
+        "bg_color": "#f8f9fa",
         "text_color": "#121212",
-        "accent_color": "#1a73e8",
+        "accent_color": "#fc2779",
         "pad_top": 60,
         "pad_bot": 60
       }
@@ -67,7 +67,7 @@
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "outline",
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": false,
