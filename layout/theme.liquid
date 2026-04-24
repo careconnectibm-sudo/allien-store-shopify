@@ -17,6 +17,18 @@
     <meta name="google-site-verification" content="NbV89sX7mE9YcbgoahVd9dnByOenqOUFhRH3ksnmtQg" />
     <link rel="canonical" href="{{ canonical_url }}">
 
+    {%- comment -%}── Google Search Console Verification ──{%- endcomment -%}
+    <meta name="google-site-verification" content="NbV89sX7mE9YcbgoahVd9dnByOenqOUFhRH3ksnmtQg" />
+
+    {%- comment -%}── Google Analytics 4 (gtag.js) ──{%- endcomment -%}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZLDGF5WC9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1ZLDGF5WC9');
+    </script>
+
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
@@ -299,6 +311,70 @@
         media="print"
         onload="this.media='all'"
       >
+    {%- endif -%}
+
+    {%- comment -%}── JSON-LD Structured Data (SEO) ──{%- endcomment -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "{{ shop.name | escape }}",
+      "url": "{{ shop.url }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{% if settings.favicon %}{{ settings.favicon | image_url: width: 512 }}{% endif %}"
+      },
+      "description": "{{ shop.description | default: 'Aliien Store – Your one-stop affiliate marketing destination. Shop from 400+ partner stores and earn cashback.' | escape }}",
+      "sameAs": [
+        {% if settings.social_facebook_link != blank %}"{{ settings.social_facebook_link }}",{% endif %}
+        {% if settings.social_twitter_link != blank %}"{{ settings.social_twitter_link }}",{% endif %}
+        {% if settings.social_instagram_link != blank %}"{{ settings.social_instagram_link }}",{% endif %}
+        {% if settings.social_youtube_link != blank %}"{{ settings.social_youtube_link }}",{% endif %}
+        "{{ shop.url }}"
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "{{ shop.name | escape }}",
+      "url": "{{ shop.url }}",
+      "description": "{{ shop.description | default: 'Aliien Store – Affiliate marketing platform with 400+ partner stores, cashback deals, and exclusive offers.' | escape }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "{{ shop.url }}/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    {%- if request.page_type == 'product' -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "{{ product.title | escape }}",
+      "description": "{{ product.description | strip_html | truncatewords: 50 | escape }}",
+      "image": "{% if product.featured_image %}{{ product.featured_image | image_url: width: 1200 }}{% endif %}",
+      "url": "{{ canonical_url }}",
+      "brand": {
+        "@type": "Brand",
+        "name": "{{ product.vendor | default: shop.name | escape }}"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "{{ cart.currency.iso_code }}",
+        "price": "{{ product.price | money_without_currency | strip_html }}",
+        "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+        "url": "{{ canonical_url }}"
+      }
+    }
+    </script>
     {%- endif -%}
 
     <script>
