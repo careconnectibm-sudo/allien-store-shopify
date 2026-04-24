@@ -1,8 +1,16 @@
 {%- liquid
   assign og_title       = page_title | default: shop.name
+  if request.page_type == 'index'
+    assign og_title     = 'AllienStore – Cashback, Deals & Rewards on Top Brands in India'
+  endif
+
   assign og_url         = canonical_url | default: request.origin
   assign og_type        = 'website'
-  assign og_description = page_description | default: shop.description | default: 'Aliien Store – Your one-stop affiliate marketing platform. Shop from 400+ partner stores and earn cashback on every purchase.'
+  
+  assign og_description = page_description | default: shop.description
+  if request.page_type == 'index'
+    assign og_description = 'AllienStore offers exclusive cashback and rewards on Amazon, Myntra, Nykaa, Ajio and 400+ top brands. Shop smart and earn on every purchase.'
+  endif
 
   if request.page_type == 'product'
     assign og_type = 'product'
