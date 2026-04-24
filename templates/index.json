@@ -11,17 +11,7 @@
   "sections": {
     "megastore_hero_main": {
       "type": "megastore-hero",
-      "settings": {
-        "title": "Shop Smart, Earn Every Time",
-        "subtitle": "Discover 400+ partner stores across every category.",
-        "search_placeholder": "Search your favorite brands...",
-        "stat_categories": "20",
-        "stat_commission": "36%",
-        "bg_color_1": "#1a1a2e",
-        "bg_color_2": "#16213e",
-        "text_color": "#ffffff",
-        "accent_color": "#1a73e8"
-      }
+      "settings": {}
     },
     "store_slider_home": {
       "type": "affiliate-store-slider",
