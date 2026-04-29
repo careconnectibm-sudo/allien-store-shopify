@@ -23,23 +23,11 @@
         "show_view_all": true,
         "view_all_label": "Explore All 400+ Stores",
         "view_all_url": "/?view=stores",
-        "bg_color": "#ffffff",
+        "bg_color": "#99c311",
         "text_color": "#1a1a1a",
-        "accent_color": "#fc2779",
-        "pad_top": 40,
+        "accent_color": "#65e549",
+        "pad_top": 80,
         "pad_bot": 40
-      }
-    },
-    "shop_by_category_home": {
-      "type": "shop-by-category",
-      "settings": {
-        "heading": "Shop by Category",
-        "subheading": "Browse stores by your favorite categories",
-        "bg_color": "#f8f9fa",
-        "text_color": "#121212",
-        "accent_color": "#fc2779",
-        "pad_top": 60,
-        "pad_bot": 60
       }
     },
     "featured_collection_yjxHNE": {
@@ -75,8 +63,20 @@
       "settings": {
         "custom_liquid": "<iframe src='https://inrdeals.com/embed/deals?user=all665437315' width='100%' height='1140' frameborder='0' allowTransparency='true'> </iframe>",
         "color_scheme": "scheme-modern-vibrant",
-        "padding_top": 40,
-        "padding_bottom": 52
+        "padding_top": 80,
+        "padding_bottom": 48
+      }
+    },
+    "shop_by_category_home": {
+      "type": "shop-by-category",
+      "settings": {
+        "heading": "Shop by Category",
+        "subheading": "Browse stores by your favorite categories",
+        "bg_color": "#4e9630",
+        "text_color": "#121212",
+        "accent_color": "#fc2779",
+        "pad_top": 60,
+        "pad_bot": 60
       }
     }
   },
