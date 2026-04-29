@@ -18,8 +18,8 @@
       "settings": {
         "heading": "Top Partner Brands",
         "max_logos": 30,
-        "logo_size": 85,
-        "speed": 35,
+        "logo_size": 100,
+        "speed": 50,
         "show_view_all": true,
         "view_all_label": "Explore All 400+ Stores",
         "view_all_url": "/?view=stores",
