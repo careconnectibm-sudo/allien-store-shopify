@@ -6,7 +6,7 @@
   ═══════════════════════════════════════════════════════════════
 {% endcomment %}
 
-{{ 'stores-data.js' | asset_url | script_tag }}
+<script src="{{ 'stores-data.js' | asset_url }}" defer="defer"></script>
 
 <footer class="allien-footer" style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
   <div class="footer-container">

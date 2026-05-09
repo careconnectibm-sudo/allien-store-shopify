@@ -75,6 +75,99 @@
 {%- style -%}
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+    background-color: #D81B60; /* AllienStore Pink/Red */
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .header__heading-link { 
+    color: #ffffff !important; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    text-decoration: none;
+  }
+  .header__icon { color: #ffffff !important; }
+
+  .list-menu__item {
+    color: #ffffff !important;
+  }
+  
+  .header__brand-text {
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffffff;
+  }
+
+  .header__search summary.modal__toggle {
+    background: #ffffff; /* White Search Bar on Red Background */
+    border-radius: 25px;
+    padding: 6px 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 180px;
+    color: #666 !important;
+    border: none;
+    box-shadow: none;
+    height: 36px;
+  }
+
+  .header__search summary.modal__toggle .svg-wrapper {
+    color: #D81B60 !important; /* Pink Search Icon */
+    width: 14px;
+    height: 14px;
+  }
+
+  .header__search summary.modal__toggle::after {
+    content: 'Search stores...';
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 989px) {
+    .header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .header__heading { grid-column: 1; margin: 0; }
+    .header__search { grid-column: 2; margin: 0; width: 100%; }
+    .header__icons { grid-column: 3; display: flex; gap: 10px; }
+    
+    .header__search summary.modal__toggle {
+       min-width: auto;
+       padding: 6px 8px;
+    }
+    .header__search summary.modal__toggle::after {
+      content: 'Search...';
+    }
+    .header__heading-logo-wrapper img {
+      height: 40px !important;
+    }
+  }
+
+  /* Navbar Styles */
+  .list-menu__item {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    color: #ffffff !important;
+  }
+  .list-menu__item:hover {
+    color: #ffeb3b !important;
+  }
+  .header__active-menu-item {
+    border-bottom: 2px solid #ffeb3b;
   }
 
   .section-header {
@@ -132,10 +225,6 @@
       if section.settings.menu != blank
         render 'header-drawer'
       endif
-
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-        render 'header-search', input_id: 'Search-In-Modal-1'
-      endif
     -%}
 
     {%- if section.settings.logo_position != 'middle-center' -%}
@@ -143,25 +232,12 @@
         <h1 class="header__heading">
       {%- endif -%}
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-            {%- if settings.logo != blank -%}
-              <div class="header__heading-logo-wrapper">
-                {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-                {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-                {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
-                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-                {{ settings.logo | image_url: width: 600 | image_tag:
-                  class: 'header__heading-logo motion-reduce',
-                  widths: widths,
-                  height: logo_height,
-                  width: settings.logo_width,
-                  alt: logo_alt,
-                  sizes: sizes,
-                  preload: true
-                }}
+              <div class="header__heading-logo-wrapper" style="display: flex; align-items: center; gap: 8px;">
+                <img src="{{ 'allienstore-icon-white.png' | asset_url }}" 
+                     alt="AllienStore" 
+                     style="height: 35px; width: auto;">
+                <span class="header__brand-text">Allienstore</span>
               </div>
-            {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
-            {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}
         </h1>
@@ -183,25 +259,12 @@
         <h1 class="header__heading">
       {%- endif -%}
           <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-            {%- if settings.logo != blank -%}
-              <div class="header__heading-logo-wrapper">
-                {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-                {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-                {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
-                {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-                {{ settings.logo | image_url: width: 600 | image_tag:
-                  class: 'header__heading-logo',
-                  widths: widths,
-                  height: logo_height,
-                  width: settings.logo_width,
-                  alt: logo_alt,
-                  sizes: sizes,
-                  preload: true
-                }}
+              <div class="header__heading-logo-wrapper" style="display: flex; align-items: center; gap: 8px;">
+                <img src="{{ 'allienstore-icon-white.png' | asset_url }}" 
+                     alt="AllienStore" 
+                     style="height: 35px; width: auto;">
+                <span class="header__brand-text">Allienstore</span>
               </div>
-            {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
-            {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}
         </h1>

@@ -61,7 +61,7 @@
     "custom_liquid_f7PkQh": {
       "type": "custom-liquid",
       "settings": {
-        "custom_liquid": "<iframe src='https://inrdeals.com/embed/deals?user=all665437315' width='100%' height='1140' frameborder='0' allowTransparency='true'> </iframe>",
+        "custom_liquid": "<iframe src='https://inrdeals.com/embed/deals?user=all665437315' width='100%' height='1140' frameborder='0' allowTransparency='true' loading='lazy'> </iframe>",
         "color_scheme": "scheme-modern-vibrant",
         "padding_top": 80,
         "padding_bottom": 48

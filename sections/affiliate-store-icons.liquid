@@ -9,7 +9,7 @@
   link in a new tab. Includes live search + category filter.
 {% endcomment %}
 
-{{ 'stores-data.js' | asset_url | script_tag }}
+<script src="{{ 'stores-data.js' | asset_url }}" defer="defer"></script>
 
 <section
   id="asi-{{ section.id }}"

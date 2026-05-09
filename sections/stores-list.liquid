@@ -8,7 +8,7 @@
   ═══════════════════════════════════════════════════════════════
 {% endcomment %}
 
-{{ 'stores-data.js' | asset_url | script_tag }}
+<script src="{{ 'stores-data.js' | asset_url }}" defer="defer"></script>
 
 <div class="sp-page" id="stores-page">
 
@@ -547,33 +547,57 @@
       grid.innerHTML = '';
       grid.className = 'sp-grid' + (state.view === 'list' ? ' is-list' : '');
 
-      list.forEach((s, i) => {
-        const a = document.createElement('a');
-        a.className = 'sp-card';
-        a.href = s.url;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer nofollow';
-        a.title = s.merchant;
-        a.style.animationDelay = Math.min(i * 12, 300) + 'ms';
+      if (list.length === 0) {
+        emptyEl.style.display = 'block';
+        grid.style.display = 'none';
+        resultLabel.textContent = `0 of ${stores.length} stores`;
+        return;
+      }
 
-        const catStr = s.categories.join(', ');
-        a.innerHTML = `
-          <div class="sp-card-logo-wrap">
-            <img class="sp-card-logo" src="${s.logo}" alt="${s.merchant}" loading="lazy"
-              onerror="this.parentElement.innerHTML='<span style=\\'font-size:.7rem;font-weight:700;color:#aaa;text-align:center;\\'>${s.merchant.slice(0,12)}</span>'">
-          </div>
-          <div class="sp-card-body">
-            <p class="sp-card-name">${s.merchant}</p>
-            <p class="sp-card-cat">${catStr}</p>
-          </div>
-        `;
-        grid.appendChild(a);
-      });
-
-      const none = list.length === 0;
-      emptyEl.style.display = none ? 'block' : 'none';
-      grid.style.display     = none ? 'none'  : 'grid';
+      emptyEl.style.display = 'none';
+      grid.style.display = 'grid';
       resultLabel.textContent = `${list.length} of ${stores.length} stores`;
+
+      // Render in chunks to avoid blocking the main thread
+      const chunkSize = 20;
+      let index = 0;
+
+      function renderChunk() {
+        const chunk = list.slice(index, index + chunkSize);
+        const fragment = document.createDocumentFragment();
+
+        chunk.forEach((s, i) => {
+          const a = document.createElement('a');
+          a.className = 'sp-card';
+          a.href = s.url;
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer nofollow';
+          a.title = s.merchant;
+          // Calculate delay based on global index to keep the animation sequence
+          a.style.animationDelay = Math.min((index + i) * 12, 300) + 'ms';
+
+          a.innerHTML = `
+            <div class="sp-card-logo-wrap">
+              <img class="sp-card-logo" src="${s.logo}" alt="${s.merchant}" loading="lazy"
+                onerror="this.parentElement.innerHTML='<span style=\\'font-size:.7rem;font-weight:700;color:#aaa;text-align:center;\\'>${s.merchant.slice(0,12)}</span>'">
+            </div>
+            <div class="sp-card-body">
+              <p class="sp-card-name">${s.merchant}</p>
+              <p class="sp-card-cat">${s.categories.join(', ')}</p>
+            </div>
+          `;
+          fragment.appendChild(a);
+        });
+
+        grid.appendChild(fragment);
+        index += chunkSize;
+
+        if (index < list.length) {
+          requestAnimationFrame(renderChunk);
+        }
+      }
+
+      renderChunk();
     }
 
     // ── Event listeners ──────────────────────────────────────────

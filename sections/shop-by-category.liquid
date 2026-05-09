@@ -7,7 +7,7 @@
   A responsive icon grid for store categories with real-time counts.
 {% endcomment %}
 
-{{ 'stores-data.js' | asset_url | script_tag }}
+<script src="{{ 'stores-data.js' | asset_url }}" defer="defer"></script>
 
 <section
   id="sbc-{{ section.id }}"
@@ -62,82 +62,74 @@
 }
 
 .sbc-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 20px;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  padding: 20px 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+  scroll-snap-type: x mandatory;
 }
-
-@media (max-width: 1024px) {
-  .sbc-grid { grid-template-columns: repeat(4, 1fr); }
-}
-@media (max-width: 768px) {
-  .sbc-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
-}
-@media (max-width: 480px) {
-  .sbc-grid { grid-template-columns: repeat(2, 1fr); }
+.sbc-grid::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .sbc-card {
+  flex: 0 0 auto;
+  width: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 30px 20px;
-  background: #fff;
-  border: 1px solid #f0f0f0;
-  border-radius: 12px;
   text-decoration: none;
   color: inherit;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  position: relative;
-  overflow: hidden;
-}
-.sbc-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #fc2779, #2874f0);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
+  scroll-snap-align: start;
 }
 
-.sbc-card:hover {
-  transform: translateY(-8px);
-  border-color: #fc2779;
-  box-shadow: 0 16px 32px rgba(252, 39, 121, 0.12);
-}
-.sbc-card:hover::before { transform: scaleX(1); }
-
-.sbc-icon {
-  font-size: 2.5rem;
+.sbc-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
   margin-bottom: 12px;
-  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
 }
-.sbc-card:hover .sbc-icon {
-  transform: scale(1.2);
+
+.sbc-card:hover .sbc-icon-wrapper {
+  transform: scale(1.1);
+  border-color: #D81B60;
+  box-shadow: 0 8px 24px rgba(216, 27, 96, 0.15);
 }
 
 .sbc-title {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  margin-bottom: 4px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .sbc-count {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #888;
   font-weight: 500;
-  background: #faf0f5;
-  padding: 2px 8px;
-  border-radius: 20px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
-.sbc-card:hover .sbc-title { color: #fc2779; }
+.sbc-card:hover .sbc-title { color: #D81B60; }
+
+@media (min-width: 990px) {
+  .sbc-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: visible;
+  }
+}
 </style>
 
 <script>
@@ -178,9 +170,13 @@
       card.className = 'sbc-card';
       card.href = `/?view=stores&cat=${encodeURIComponent(cat)}`;
       
+      const iconWrapper = document.createElement('div');
+      iconWrapper.className = 'sbc-icon-wrapper';
+      
       const icon = document.createElement('span');
       icon.className = 'sbc-icon';
       icon.textContent = CATEGORY_MAP[cat] || '🏷️';
+      iconWrapper.appendChild(icon);
 
       const title = document.createElement('span');
       title.className = 'sbc-title';
@@ -190,7 +186,7 @@
       count.className = 'sbc-count';
       count.textContent = counts[cat] + ' Stores';
 
-      card.appendChild(icon);
+      card.appendChild(iconWrapper);
       card.appendChild(title);
       card.appendChild(count);
       fragment.appendChild(card);

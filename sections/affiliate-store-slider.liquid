@@ -7,7 +7,7 @@
   An infinite scrolling logo marquee for affiliate partners.
 {% endcomment %}
 
-{{ 'stores-data.js' | asset_url | script_tag }}
+<script src="{{ 'stores-data.js' | asset_url }}" defer="defer"></script>
 
 <section
   id="ass-{{ section.id }}"
