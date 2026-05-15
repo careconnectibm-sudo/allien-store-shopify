@@ -29,6 +29,9 @@
   color: var(--text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .allienstore-wrapper *, 
@@ -309,6 +312,19 @@
 .cat-pills-allien{
   display:flex;gap:10px;flex-wrap:wrap;
   margin-top:28px;
+}
+@media(max-width:768px){
+  .cat-pills-allien{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding-bottom:12px;
+    margin:20px -16px 0;
+    padding-left:16px;
+    padding-right:16px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .cat-pills-allien::-webkit-scrollbar{display:none;}
+  .cat-pill-allien{flex-shrink:0;}
 }
 .cat-pill-allien{
   display:flex;align-items:center;gap:8px;
@@ -597,27 +613,46 @@
 
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media(max-width:1024px){
-  .stores-grid-allien{grid-template-columns:repeat(2,1fr);}
-  .hero-inner-allien{grid-template-columns:1fr;gap:32px;}
+  .hero-inner-allien{grid-template-columns:1fr;gap:32px;text-align:center;}
   .hero-visual-allien{display:none;}
+  .hero-sub-allien{margin-left:auto;margin-right:auto;}
+  .hero-ctas-allien{justify-content:center;}
+  .hero-stats-allien{justify-content:center;}
   .hero-allien h1{font-size:36px;}
-  .footer-top-allien{grid-template-columns:1fr 1fr;gap:32px;}
   .trust-inner-allien{grid-template-columns:repeat(2,1fr);}
   .how-grid-allien{grid-template-columns:repeat(2,1fr);}
   .leaderboard-allien{grid-template-columns:1fr;}
+  .footer-top-allien{grid-template-columns:1fr 1fr;gap:32px;}
 }
-@media(max-width:700px){
-  .header-allien .search-btn-allien{display:none;}
+
+@media(max-width:768px){
+  .header-inner-allien{padding:0 16px;height:60px;}
+  .nav-allien{display:none;} /* Hide desktop nav on mobile */
+  .search-btn-allien{width:40px;padding:0;justify-content:center;font-size:0;} /* Icon only search */
+  .search-btn-allien svg{width:18px;height:18px;}
+  
+  .section-allien{padding:48px 16px;}
+  .section-header-allien{flex-direction:column;align-items:flex-start;gap:16px;}
+  
   .stores-grid-allien{grid-template-columns:1fr;}
-  .feat-store-allien{grid-template-columns:1fr;padding:28px;}
+  .feat-store-allien{grid-template-columns:1fr;padding:32px 24px;text-align:center;}
   .feat-logo-side-allien{display:none;}
-  .app-cta-allien{grid-template-columns:1fr;padding:28px;}
+  .feat-cashback-row-allien{justify-content:center;}
+  
+  .app-cta-allien{grid-template-columns:1fr;padding:32px 24px;text-align:center;}
   .app-mockup-allien{display:none;}
+  .app-btns-allien{justify-content:center;flex-direction:column;}
+  
   .trust-inner-allien{grid-template-columns:1fr;}
   .how-grid-allien{grid-template-columns:1fr;}
   .footer-top-allien{grid-template-columns:1fr;}
-  .section-header-allien{flex-direction:column;align-items:flex-start;gap:12px;}
-  .cat-pills-allien{gap:8px;}
+}
+
+@media(max-width:480px){
+  .announcement-bar-allien{font-size:11px;padding:8px 12px;}
+  .hero-allien h1{font-size:30px;}
+  .btn-primary-allien, .btn-secondary-allien{width:100%;justify-content:center;}
+  .store-card-allien{max-width:100%;}
 }
 
 /* ── ANIMATIONS ─────────────────────────────────────────────── */
