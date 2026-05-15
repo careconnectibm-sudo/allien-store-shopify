@@ -11,7 +11,8 @@
     </div>
     <div class="stores-grid-allien">
       {%- for block in section.blocks -%}
-        <div class="store-card-allien">
+        {%- if block.settings.active -%}
+          <div class="store-card-allien">
           <div class="store-card-img-allien">
             {%- if block.settings.logo != blank -%}
               <img src="{{ block.settings.logo | image_url: width: 200 }}" alt="{{ block.settings.name }}">
@@ -32,6 +33,7 @@
             </div>
           </div>
         </div>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </div>
@@ -101,6 +103,12 @@
           "type": "url",
           "id": "url",
           "label": "Store URL"
+        },
+        {
+          "type": "checkbox",
+          "id": "active",
+          "label": "Active",
+          "default": true
         }
       ]
     }
