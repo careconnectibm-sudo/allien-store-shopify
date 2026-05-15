@@ -1,77 +1,90 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "allien_hero": {
-      "type": "allienstore-hero",
+    "megastore_hero_main": {
+      "type": "megastore-hero",
+      "settings": {}
+    },
+    "store_slider_home": {
+      "type": "affiliate-store-slider",
       "settings": {
-        "tag_text": "🎯 Smart Shopping Platform",
-        "title": "Shop Smart.<br>Earn <em>Extra</em><br>Every Time.",
-        "subtitle": "Get exclusive cashback and rewards on Amazon, Myntra, Nykaa, Ajio, and 400+ top brands in India. Every rupee you spend earns you back.",
-        "primary_btn_text": "Explore Stores →",
-        "secondary_btn_text": "How It Works",
-        "card_badge": "🔥 Featured Deal",
-        "card_title": "Amazon Shopping",
-        "card_desc": "Up to 12% cashback on all orders",
-        "card_amount": "12%",
-        "sm1_label": "Myntra Earnings",
-        "sm1_val": "9%",
-        "sm1_sub": "Fashion & Lifestyle",
-        "sm2_label": "Nykaa Beauty",
-        "sm2_val": "6.8%",
-        "sm2_sub": "Beauty & Wellness"
-      },
-      "blocks": {
-        "stat_1": {
-          "type": "stat",
-          "settings": { "number": "400+", "label": "Partner Brands" }
-        },
-        "stat_2": {
-          "type": "stat",
-          "settings": { "number": "10M+", "label": "Happy Shoppers" }
-        },
-        "stat_3": {
-          "type": "stat",
-          "settings": { "number": "₹50Cr+", "label": "Cashback Paid" }
-        }
-      },
-      "block_order": ["stat_1", "stat_2", "stat_3"]
+        "heading": "Top Partner Brands",
+        "max_logos": 30,
+        "logo_size": 100,
+        "speed": 50,
+        "show_view_all": true,
+        "view_all_label": "Explore All 400+ Stores",
+        "view_all_url": "/?view=stores",
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "accent_color": "#65e549",
+        "pad_top": 60,
+        "pad_bot": 40
+      }
     },
-    "allien_trust": {
-      "type": "allienstore-trust-strip",
-      "settings": {}
+    "featured_collection_yjxHNE": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "all",
+        "products_to_show": 24,
+        "title": "{{ section.settings.collection.title }}",
+        "heading_size": "h2",
+        "description": "",
+        "show_description": true,
+        "description_style": "uppercase",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "outline",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": true,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     },
-    "allien_categories": {
-      "type": "allienstore-category-pills",
-      "settings": {}
+    "custom_liquid_f7PkQh": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<iframe src='https://inrdeals.com/embed/deals?user=all665437315' width='100%' height='1140' frameborder='0' allowTransparency='true' loading='lazy'> </iframe>",
+        "color_scheme": "scheme-1",
+        "padding_top": 80,
+        "padding_bottom": 48
+      }
     },
-    "allien_featured": {
-      "type": "allienstore-featured-store",
-      "settings": {}
-    },
-    "allien_stores": {
-      "type": "allienstore-stores-grid",
-      "settings": {}
-    },
-    "allien_how": {
-      "type": "allienstore-how-it-works",
-      "settings": {}
-    },
-    "allien_leaderboard": {
-      "type": "allienstore-leaderboard",
-      "settings": {}
-    },
-    "allien_app": {
-      "type": "allienstore-app-cta",
-      "settings": {}
+    "shop_by_category_home": {
+      "type": "shop-by-category",
+      "settings": {
+        "heading": "Shop by Category",
+        "subheading": "Browse stores by your favorite categories",
+        "bg_color": "#ffffff",
+        "text_color": "#121212",
+        "accent_color": "#ff5a1f",
+        "pad_top": 60,
+        "pad_bot": 60
+      }
     }
   },
   "order": [
-    "allien_hero",
-    "allien_trust",
-    "allien_categories",
-    "allien_featured",
-    "allien_stores",
-    "allien_how",
-    "allien_leaderboard",
-    "allien_app"
+    "megastore_hero_main",
+    "store_slider_home",
+    "featured_collection_yjxHNE",
+    "custom_liquid_f7PkQh",
+    "shop_by_category_home"
   ]
 }
