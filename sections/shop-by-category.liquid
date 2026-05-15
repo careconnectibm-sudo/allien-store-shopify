@@ -1,10 +1,10 @@
 {% comment %}
   ═══════════════════════════════════════════════════════════════
-  Section: Shop by Category
+  Section: Shop by Category (Premium)
   File:    sections/shop-by-category.liquid
   Requires: assets/stores-data.js
   ═══════════════════════════════════════════════════════════════
-  A responsive icon grid for store categories with real-time counts.
+  A responsive category grid using Shopify collection images as background covers.
 {% endcomment %}
 
 <script src="{{ 'stores-data.js' | asset_url }}" defer="defer"></script>
@@ -31,7 +31,34 @@
     {%- endif -%}
 
     <div class="sbc-grid" id="sbc-grid-{{ section.id }}">
-      <!-- Categories injected via JS -->
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign collection = block.settings.collection -%}
+          {%- if collection != blank -%}
+            <a href="{{ collection.url }}" class="sbc-card sbc-card--manual" {{ block.shopify_attributes }}>
+              <div class="sbc-image-wrapper">
+                {%- if collection.featured_image != blank -%}
+                  <img src="{{ collection.featured_image | img_url: '400x400', crop: 'center' }}" 
+                       alt="{{ collection.title | escape }}"
+                       loading="lazy"
+                       class="sbc-image">
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'sbc-image sbc-placeholder' }}
+                {%- endif -%}
+                <div class="sbc-overlay"></div>
+              </div>
+              <div class="sbc-content">
+                <span class="sbc-title">{{ collection.title }}</span>
+                {%- if section.settings.show_counts -%}
+                   <span class="sbc-count" data-category="{{ collection.title }}">0 Stores</span>
+                {%- endif -%}
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Categories injected via JS if no blocks -->
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -40,6 +67,7 @@
 .sbc-section {
   background: var(--sbc-bg, #ffffff);
   color: var(--sbc-text, #1a1a1a);
+  overflow: hidden;
 }
 .sbc-container {
   max-width: 1400px;
@@ -51,83 +79,123 @@
   margin-bottom: 40px;
 }
 .sbc-heading {
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 800;
-  margin: 0 0 8px;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
 }
 .sbc-subheading {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #666;
+  max-width: 600px;
   margin: 0;
+  line-height: 1.5;
 }
 
 .sbc-grid {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   overflow-x: auto;
-  padding: 20px 0;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+  padding: 10px 0 30px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   scroll-snap-type: x mandatory;
 }
 .sbc-grid::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 .sbc-card {
   flex: 0 0 auto;
-  width: 120px;
+  width: 160px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   scroll-snap-align: start;
 }
 
-.sbc-icon-wrapper {
-  width: 80px;
-  height: 80px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.2rem;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
+.sbc-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 24px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  background: #f5f5f5;
+  transition: all 0.4s ease;
 }
 
-.sbc-card:hover .sbc-icon-wrapper {
+.sbc-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.sbc-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.sbc-card:hover .sbc-image-wrapper {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.sbc-card:hover .sbc-image {
   transform: scale(1.1);
-  border-color: #D81B60;
-  box-shadow: 0 8px 24px rgba(216, 27, 96, 0.15);
+}
+
+.sbc-card:hover .sbc-overlay {
+  opacity: 1;
+}
+
+.sbc-content {
+  text-align: center;
 }
 
 .sbc-title {
-  font-size: 0.85rem;
+  display: block;
+  font-size: 1rem;
   font-weight: 700;
-  text-align: center;
-  white-space: nowrap;
+  margin-bottom: 4px;
+  transition: color 0.3s ease;
 }
 
 .sbc-count {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: #888;
   font-weight: 500;
-  margin-top: 2px;
 }
 
-.sbc-card:hover .sbc-title { color: #D81B60; }
+.sbc-card:hover .sbc-title {
+  color: var(--sbc-accent);
+}
 
 @media (min-width: 990px) {
   .sbc-grid {
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     overflow-x: visible;
+    gap: 30px;
+  }
+  .sbc-card {
+    width: calc(16.666% - 25px);
+  }
+}
+
+@media (max-width: 768px) {
+  .sbc-card {
+    width: 140px;
   }
 }
 </style>
@@ -135,19 +203,16 @@
 <script>
 (function() {
   const SEC_ID = '{{ section.id }}';
-  const CATEGORY_MAP = {
-    'Fashion': '👔',
-    'Electronics': '💻',
-    'Beauty': '💄',
-    'Home': '🏠',
-    'Travel': '✈️',
-    'Food': '🍔',
-    'Education': '📚',
-    'Health': '💊',
-    'Finance': '💰',
-    'Services': '🛠️',
-    'Gaming': '🎮',
-    'Entertainment': '🎬'
+  const SHOW_COUNTS = {{ section.settings.show_counts | json }};
+  
+  // Map of categories to fallback images if needed
+  const CATEGORY_IMAGES = {
+    'Fashion': 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=400&q=80',
+    'Electronics': 'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=400&q=80',
+    'Beauty': 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80',
+    'Home': 'https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=400&q=80',
+    'Travel': 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=400&q=80',
+    'Food': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80'
   };
 
   function initCategories(stores) {
@@ -162,6 +227,22 @@
       });
     });
 
+    // If manual blocks exist, just update counts
+    const manualCards = grid.querySelectorAll('.sbc-card--manual');
+    if (manualCards.length > 0) {
+      manualCards.forEach(card => {
+        const countEl = card.querySelector('.sbc-count');
+        if (countEl) {
+          const cat = countEl.getAttribute('data-category');
+          if (cat && counts[cat]) {
+            countEl.textContent = counts[cat] + ' Stores';
+          }
+        }
+      });
+      return;
+    }
+
+    // Otherwise, generate dynamic cards
     const categories = Object.keys(counts).sort((a,b) => counts[b] - counts[a]).slice(0, 12);
     const fragment = document.createDocumentFragment();
 
@@ -170,25 +251,39 @@
       card.className = 'sbc-card';
       card.href = `/?view=stores&cat=${encodeURIComponent(cat)}`;
       
-      const iconWrapper = document.createElement('div');
-      iconWrapper.className = 'sbc-icon-wrapper';
+      const imgWrapper = document.createElement('div');
+      imgWrapper.className = 'sbc-image-wrapper';
       
-      const icon = document.createElement('span');
-      icon.className = 'sbc-icon';
-      icon.textContent = CATEGORY_MAP[cat] || '🏷️';
-      iconWrapper.appendChild(icon);
+      const img = document.createElement('img');
+      img.className = 'sbc-image';
+      img.src = CATEGORY_IMAGES[cat] || `https://source.unsplash.com/featured/400x400?${encodeURIComponent(cat)}`;
+      img.alt = cat;
+      img.loading = 'lazy';
+      
+      const overlay = document.createElement('div');
+      overlay.className = 'sbc-overlay';
+      
+      imgWrapper.appendChild(img);
+      imgWrapper.appendChild(overlay);
+
+      const content = document.createElement('div');
+      content.className = 'sbc-content';
 
       const title = document.createElement('span');
       title.className = 'sbc-title';
       title.textContent = cat;
 
-      const count = document.createElement('span');
-      count.className = 'sbc-count';
-      count.textContent = counts[cat] + ' Stores';
+      content.appendChild(title);
 
-      card.appendChild(iconWrapper);
-      card.appendChild(title);
-      card.appendChild(count);
+      if (SHOW_COUNTS) {
+        const count = document.createElement('span');
+        count.className = 'sbc-count';
+        count.textContent = counts[cat] + ' Stores';
+        content.appendChild(count);
+      }
+
+      card.appendChild(imgWrapper);
+      card.appendChild(content);
       fragment.appendChild(card);
     });
 
@@ -222,6 +317,12 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Browse stores by your favorite categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_counts",
+      "label": "Show Store Counts",
+      "default": true
     },
     {
       "type": "color",
@@ -264,10 +365,24 @@
       "default": 60
     }
   ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Shop by Category",
-      "category": "Promotions"
+      "category": "Promotions",
+      "blocks": []
     }
   ]
 }
