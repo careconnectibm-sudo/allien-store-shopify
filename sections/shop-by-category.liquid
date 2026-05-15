@@ -200,13 +200,22 @@
 }
 </style>
 
+{%- capture collection_images_json -%}
+{
+  {%- for collection in collections -%}
+    "{{ collection.title | escape }}": "{{ collection.featured_image | img_url: '400x400', crop: 'center' }}"{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+}
+{%- endcapture -%}
+
 <script>
 (function() {
   const SEC_ID = '{{ section.id }}';
   const SHOW_COUNTS = {{ section.settings.show_counts | json }};
+  const COLLECTION_IMAGES = {{ collection_images_json }};
   
-  // Map of categories to fallback images if needed
-  const CATEGORY_IMAGES = {
+  // High-quality fallbacks if no matching Shopify collection is found
+  const FALLBACK_IMAGES = {
     'Fashion': 'https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=400&q=80',
     'Electronics': 'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=400&q=80',
     'Beauty': 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80',
@@ -256,7 +265,12 @@
       
       const img = document.createElement('img');
       img.className = 'sbc-image';
-      img.src = CATEGORY_IMAGES[cat] || `https://source.unsplash.com/featured/400x400?${encodeURIComponent(cat)}`;
+      
+      // Prioritize Shopify Collection Image, then local fallback, then placeholder
+      const shopifyImg = COLLECTION_IMAGES[cat];
+      const fallbackImg = FALLBACK_IMAGES[cat];
+      img.src = shopifyImg || fallbackImg || `https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80`;
+      
       img.alt = cat;
       img.loading = 'lazy';
       
@@ -278,7 +292,7 @@
       if (SHOW_COUNTS) {
         const count = document.createElement('span');
         count.className = 'sbc-count';
-        count.textContent = counts[cat] + ' Stores';
+        count.textContent = (counts[cat] || 0) + ' Stores';
         content.appendChild(count);
       }
 
