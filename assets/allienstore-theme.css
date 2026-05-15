@@ -631,7 +631,10 @@
   .search-btn-allien{width:40px;padding:0;justify-content:center;font-size:0;} /* Icon only search */
   .search-btn-allien svg{width:18px;height:18px;}
   
-  .section-allien{padding:48px 16px;}
+  .announcement-text-allien{display:none !important;} /* Force hide on all mobile/tablet */
+  .announcement-bar-allien{justify-content:center;gap:16px;}
+  
+  .section-allien{padding:32px 16px;}
   .section-header-allien{flex-direction:column;align-items:flex-start;gap:16px;}
   
   .stores-grid-allien{grid-template-columns:1fr;}
@@ -649,15 +652,21 @@
 }
 
 @media(max-width:480px){
-  .announcement-bar-allien{font-size:12px;padding:10px 16px;justify-content:center;gap:12px;}
-  .announcement-text-allien{display:none;} /* Hide long middle text on small mobile */
-  .announcement-link-allien{font-weight:800;text-decoration:underline;}
+  .announcement-bar-allien{font-size:12px;padding:8px 12px;}
   
-  .hero-allien{padding:80px 16px;min-height:480px;display:flex;align-items:center;}
-  .hero-allien h1{font-size:32px;line-height:1.2;}
-  .hero-sub-allien{font-size:14px;line-height:1.5;margin-bottom:32px;}
+  .hero-allien{padding:40px 16px 32px;min-height:auto;display:block;}
+  .hero-allien h1{font-size:28px;line-height:1.1;margin-bottom:16px;}
+  .hero-sub-allien{font-size:14px;line-height:1.4;margin-bottom:24px;max-width:100%;}
+  .hero-tag-allien{font-size:11px;padding:4px 10px;margin-bottom:16px;}
   
-  .btn-primary-allien, .btn-secondary-allien{width:100%;justify-content:center;height:52px;font-size:15px;}
+  .hero-stats-allien{gap:12px;margin-top:32px;flex-wrap:wrap;justify-content:center;}
+  .hero-stats-allien > div:not([style*="width:1px"]){flex:1;min-width:80px;}
+  .hero-stat-num-allien{font-size:18px;}
+  .hero-stat-label-allien{font-size:10px;}
+  
+  .btn-primary-allien, .btn-secondary-allien{width:100%;justify-content:center;height:48px;font-size:14px;}
+  .hero-ctas-allien{gap:12px;}
+  
   .store-card-allien{max-width:100%;}
 }
 
