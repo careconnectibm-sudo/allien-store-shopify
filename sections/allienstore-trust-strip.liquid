@@ -1,0 +1,84 @@
+<div class="trust-strip-allien">
+  <div class="trust-inner-allien">
+    {%- for block in section.blocks -%}
+      <div class="trust-item-allien" {% if forloop.first %}style="padding-left:0;"{% else %}style="padding-left:24px;"{% endif %}>
+        <div class="trust-icon-allien">
+          {{ block.settings.icon_svg }}
+        </div>
+        <div class="trust-text-allien">
+          <strong>{{ block.settings.title }}</strong>
+          <span>{{ block.settings.subtitle }}</span>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Allien Trust Strip",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Icon SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien Trust Strip",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": {
+            "icon_svg": "<svg width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>",
+            "title": "100% Secure",
+            "subtitle": "SSL encrypted payments"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon_svg": "<svg width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"><polyline points=\"20 6 9 17 4 12\"/></svg>",
+            "title": "Verified Cashback",
+            "subtitle": "Guaranteed rewards"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon_svg": "<svg width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/></svg>",
+            "title": "Instant Tracking",
+            "subtitle": "Real-time cashback status"
+          }
+        },
+        {
+          "type": "item",
+          "settings": {
+            "icon_svg": "<svg width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" viewBox=\"0 0 24 24\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><line x1=\"8\" y1=\"21\" x2=\"16\" y2=\"21\"/><line x1=\"12\" y1=\"17\" x2=\"12\" y2=\"21\"/></svg>",
+            "title": "App + Web",
+            "subtitle": "Shop anywhere, anytime"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

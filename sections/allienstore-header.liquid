@@ -1,0 +1,61 @@
+<header class="header-allien">
+  <div class="header-inner-allien">
+    <a href="{{ routes.root_url }}" class="logo-allien">
+      {%- assign name_parts = shop.name | split: ' ' -%}
+      {%- if name_parts.size > 1 -%}
+        {{ name_parts.first }}<span style="color:var(--text)">{{ name_parts.last }}</span>
+      {%- else -%}
+        {%- assign downcase_name = shop.name | downcase -%}
+        {%- if downcase_name contains 'store' -%}
+          {%- assign name_base = shop.name | replace_first: 'Store', '' | replace_first: 'store', '' -%}
+          {{ name_base }}<span style="color:var(--text)">{% if shop.name contains 'Store' %}Store{% else %}store{% endif %}</span>
+        {%- else -%}
+          {{ shop.name }}
+        {%- endif -%}
+      {%- endif -%}
+      <span class="logo-dot-allien"></span>
+    </a>
+    <nav class="nav-allien">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}" class="nav-link-allien{% if link.active %} active{% endif %}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <div class="header-actions-allien">
+      <button class="search-btn-allien">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Search stores…
+      </button>
+      <a href="{{ routes.cart_url }}" class="cart-btn-allien">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Cart
+        {%- if cart.item_count > 0 -%}
+          <span class="cart-badge-allien">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="login-btn-allien btn-primary-allien" style="box-shadow:none;">
+          {%- if customer -%}Account{%- else -%}Log In →{%- endif -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Allien Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien Header"
+    }
+  ]
+}
+{% endschema %}

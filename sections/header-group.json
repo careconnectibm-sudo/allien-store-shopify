@@ -1,37 +1,25 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
-  "name": "t:sections.header.name",
+  "name": "Header Group",
   "type": "header",
   "sections": {
-    "header": {
-      "type": "header",
+    "allien_announcement": {
+      "type": "allienstore-announcement-bar",
       "settings": {
-        "logo_position": "middle-left",
-        "mobile_logo_position": "left",
-        "menu": "footer",
-        "menu_type_desktop": "mega",
-        "sticky_header_type": "on-scroll-up",
-        "show_line_separator": true,
-        "color_scheme": "scheme-1",
-        "menu_color_scheme": "scheme-1",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "enable_customer_avatar": true,
-        "margin_bottom": 0,
-        "padding_top": 0,
-        "padding_bottom": 0
+        "tag_text": "🔥 Live",
+        "announcement_text": "400+ Partner Stores · Earn cashback on every purchase · Trusted by 10M+ Indians",
+        "link_text": "Download App",
+        "link_url": "https://play.google.com/store/apps/details?id=com.alliengalaxy.allienstore"
+      }
+    },
+    "allien_header": {
+      "type": "allienstore-header",
+      "settings": {
+        "menu": "main-menu"
       }
     }
   },
   "order": [
-    "header"
+    "allien_announcement",
+    "allien_header"
   ]
 }

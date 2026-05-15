@@ -1,0 +1,68 @@
+<div class="cat-section-allien" id="categories">
+  <div class="section-inner-allien">
+    <div class="section-header-allien">
+      <div>
+        <div class="section-label-allien">{{ section.settings.label }}</div>
+        <div class="section-title-allien">{{ section.settings.title }}</div>
+      </div>
+    </div>
+    <div class="cat-pills-allien">
+      {%- for block in section.blocks -%}
+        <div class="cat-pill-allien{% if forloop.first %} active{% endif %}">
+          <span class="cat-pill-icon-allien">{{ block.settings.icon }}</span> 
+          {{ block.settings.title }}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Allien Category Pills",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Browse by Category"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "What are you shopping for?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Emoji Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien Category Pills",
+      "blocks": [
+        { "type": "category", "settings": { "icon": "🛍️", "title": "All Stores" } },
+        { "type": "category", "settings": { "icon": "👗", "title": "Fashion" } },
+        { "type": "category", "settings": { "icon": "📱", "title": "Electronics" } },
+        { "type": "category", "settings": { "icon": "💄", "title": "Beauty" } },
+        { "type": "category", "settings": { "icon": "✈️", "title": "Travel" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

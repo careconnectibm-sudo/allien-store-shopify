@@ -1,0 +1,42 @@
+<div class="announcement-bar-allien">
+  <span>{{ section.settings.tag_text }}</span>
+  {{ section.settings.announcement_text }}
+  <a href="{{ section.settings.link_url }}" style="color:inherit; text-decoration:none;"><span>{{ section.settings.link_text }}</span></a>
+</div>
+
+{% schema %}
+{
+  "name": "Allien Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag Text",
+      "default": "🔥 Live"
+    },
+    {
+      "type": "textarea",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "400+ Partner Stores · Earn cashback on every purchase · Trusted by 10M+ Indians"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link Text",
+      "default": "Download App"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "App Link URL",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

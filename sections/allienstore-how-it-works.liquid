@@ -1,0 +1,68 @@
+<section class="how-section-allien section-allien" id="how">
+  <div class="section-inner-allien">
+    <div class="section-header-allien">
+      <div>
+        <div class="section-label-allien">{{ section.settings.label }}</div>
+        <div class="section-title-allien">{{ section.settings.title }}</div>
+      </div>
+    </div>
+    <div class="how-grid-allien">
+      {%- for block in section.blocks -%}
+        <div class="how-step-allien">
+          <div class="step-num-allien">{{ forloop.index }}</div>
+          <div class="step-title-allien">{{ block.settings.title }}</div>
+          <div class="step-desc-allien">{{ block.settings.description }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Allien How It Works",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "The Process"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "How it Works?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien How It Works",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Join for Free", "description": "Create your account in seconds and start your rewards journey." } },
+        { "type": "step", "settings": { "title": "Shop Normally", "description": "Visit your favorite stores through our platform as you always do." } },
+        { "type": "step", "settings": { "title": "Earn Cashback", "description": "We track your purchase and credit cashback to your wallet." } },
+        { "type": "step", "settings": { "title": "Withdraw Cash", "description": "Transfer your earnings directly to your bank account or UPI." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

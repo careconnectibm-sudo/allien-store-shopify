@@ -1,26 +1,19 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
-  "name": "t:sections.footer.name",
+  "name": "Footer Group",
   "type": "footer",
   "sections": {
-    "custom_footer_main": {
-      "type": "custom-footer",
+    "allien_footer": {
+      "type": "allienstore-footer",
       "settings": {
-        "description": "Shop smart and earn rewards on every purchase. We partner with the world's leading brands to bring you the best deals and cashback offers.",
-        "bg_color": "#16213e",
-        "text_color": "#cbd5e0"
+        "description": "India's most trusted cashback and rewards platform. Save on every purchase across 400+ partner brands.",
+        "facebook_link": "https://www.facebook.com/share/1DXVa4zgTm/",
+        "instagram_link": "https://www.instagram.com/allien_store_hub/",
+        "play_store_link": "https://play.google.com/store/apps/details?id=com.alliengalaxy.allienstore",
+        "email_address": "alliengalaxy071@gmail.com"
       }
     }
   },
   "order": [
-    "custom_footer_main"
+    "allien_footer"
   ]
 }

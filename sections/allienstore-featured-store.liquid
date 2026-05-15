@@ -1,0 +1,101 @@
+<section class="section-allien" style="padding-bottom:0;">
+  <div class="section-inner-allien">
+    <div class="feat-store-allien">
+      <div style="position:relative;z-index:1;">
+        <div class="feat-store-badge-allien">{{ section.settings.badge }}</div>
+        <h3>{{ section.settings.title }}</h3>
+        <p class="feat-store-sub-allien">{{ section.settings.subtitle }}</p>
+        <div class="feat-cashback-row-allien">
+          <div>
+            <div class="feat-cb-num-allien">{{ section.settings.cashback_amount }}</div>
+            <div class="feat-cb-label-allien">{{ section.settings.cashback_label }}</div>
+          </div>
+          <div style="width:1px;height:48px;background:rgba(255,255,255,0.1)"></div>
+          <div>
+            <div style="font-size:24px;font-weight:700;color:#fff;font-family:var(--font-display);">{{ section.settings.stat_value }}</div>
+            <div class="feat-cb-label-allien">{{ section.settings.stat_label }}</div>
+          </div>
+        </div>
+        <a href="{{ section.settings.btn_url }}" target="_blank" class="feat-btn-allien">{{ section.settings.btn_text }}</a>
+      </div>
+      <div class="feat-logo-side-allien">
+        {%- if section.settings.logo_image != blank -%}
+          <img src="{{ section.settings.logo_image | image_url: width: 400 }}" alt="{{ section.settings.logo_image.alt }}">
+        {%- else -%}
+          <img src="https://inrdeals.sgp1.cdn.digitaloceanspaces.com/production/341759/amazon-.in-logo-400-x-200.png" alt="Amazon">
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Allien Featured Store",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "⭐ Top Rated Store"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Everything You Love,<br>Plus Extra Rewards."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Shop on Amazon India and earn exclusive cashback on every purchase — from electronics to groceries."
+    },
+    {
+      "type": "text",
+      "id": "cashback_amount",
+      "label": "Cashback Amount",
+      "default": "12%"
+    },
+    {
+      "type": "text",
+      "id": "cashback_label",
+      "label": "Cashback Label",
+      "default": "Cashback Reward"
+    },
+    {
+      "type": "text",
+      "id": "stat_value",
+      "label": "Stat Value",
+      "default": "10M+"
+    },
+    {
+      "type": "text",
+      "id": "stat_label",
+      "label": "Stat Label",
+      "default": "Products Available"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Text",
+      "default": "Shop on Amazon 🚀"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien Featured Store"
+    }
+  ]
+}
+{% endschema %}

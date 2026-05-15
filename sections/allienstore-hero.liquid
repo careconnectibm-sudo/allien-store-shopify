@@ -1,0 +1,186 @@
+<section class="hero-allien">
+  <div class="hero-inner-allien">
+    <div>
+      <div class="hero-tag-allien">{{ section.settings.tag_text }}</div>
+      <h1>{{ section.settings.title }}</h1>
+      <p class="hero-sub-allien">{{ section.settings.subtitle }}</p>
+      <div class="hero-ctas-allien">
+        <a href="{{ section.settings.primary_btn_url }}" class="btn-primary-allien">{{ section.settings.primary_btn_text }}</a>
+        <a href="{{ section.settings.secondary_btn_url }}" class="btn-secondary-allien">{{ section.settings.secondary_btn_text }}</a>
+      </div>
+      <div class="hero-stats-allien">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'stat' -%}
+            <div>
+              <div class="hero-stat-num-allien">{{ block.settings.number }}</div>
+              <div class="hero-stat-label-allien">{{ block.settings.label }}</div>
+            </div>
+            {%- unless forloop.last -%}
+              <div style="width:1px;background:rgba(255,255,255,0.1)"></div>
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="hero-visual-allien">
+      <div class="hero-card-allien hc-main-allien">
+        <div class="hc-badge-allien">{{ section.settings.card_badge }}</div>
+        <div class="hc-title-allien">{{ section.settings.card_title }}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:10px;">{{ section.settings.card_desc }}</div>
+        <div class="hc-amount-allien">{{ section.settings.card_amount }} <span>Cashback</span></div>
+      </div>
+      <div class="hero-card-allien hc-small-allien hc-sm1-allien">
+        <div class="hc-s-label-allien">{{ section.settings.sm1_label }}</div>
+        <div class="hc-s-val-allien">{{ section.settings.sm1_val }}</div>
+        <div class="hc-s-sub-allien">{{ section.settings.sm1_sub }}</div>
+      </div>
+      <div class="hero-card-allien hc-small-allien hc-sm2-allien">
+        <div class="hc-s-label-allien">{{ section.settings.sm2_label }}</div>
+        <div class="hc-s-val-allien">{{ section.settings.sm2_val }}</div>
+        <div class="hc-s-sub-allien">{{ section.settings.sm2_sub }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Allien Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tag_text",
+      "label": "Tag Text",
+      "default": "🎯 Smart Shopping Platform"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop Smart.<br>Earn <em>Extra</em><br>Every Time."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Get exclusive cashback and rewards on Amazon, Myntra, Nykaa, Ajio, and 400+ top brands in India. Every rupee you spend earns you back."
+    },
+    {
+      "type": "text",
+      "id": "primary_btn_text",
+      "label": "Primary Button Text",
+      "default": "Explore Stores →"
+    },
+    {
+      "type": "url",
+      "id": "primary_btn_url",
+      "label": "Primary Button URL"
+    },
+    {
+      "type": "text",
+      "id": "secondary_btn_text",
+      "label": "Secondary Button Text",
+      "default": "How It Works"
+    },
+    {
+      "type": "url",
+      "id": "secondary_btn_url",
+      "label": "Secondary Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Floating Cards"
+    },
+    {
+      "type": "text",
+      "id": "card_badge",
+      "label": "Card Badge",
+      "default": "🔥 Featured Deal"
+    },
+    {
+      "type": "text",
+      "id": "card_title",
+      "label": "Card Title",
+      "default": "Amazon Shopping"
+    },
+    {
+      "type": "text",
+      "id": "card_desc",
+      "label": "Card Description",
+      "default": "Up to 12% cashback on all orders"
+    },
+    {
+      "type": "text",
+      "id": "card_amount",
+      "label": "Card Amount",
+      "default": "12%"
+    },
+    {
+      "type": "text",
+      "id": "sm1_label",
+      "label": "Small Card 1 Label",
+      "default": "Myntra Earnings"
+    },
+    {
+      "type": "text",
+      "id": "sm1_val",
+      "label": "Small Card 1 Value",
+      "default": "9%"
+    },
+    {
+      "type": "text",
+      "id": "sm1_sub",
+      "label": "Small Card 1 Sub",
+      "default": "Fashion & Lifestyle"
+    },
+    {
+      "type": "text",
+      "id": "sm2_label",
+      "label": "Small Card 2 Label",
+      "default": "Nykaa Beauty"
+    },
+    {
+      "type": "text",
+      "id": "sm2_val",
+      "label": "Small Card 2 Value",
+      "default": "6.8%"
+    },
+    {
+      "type": "text",
+      "id": "sm2_sub",
+      "label": "Small Card 2 Sub",
+      "default": "Beauty & Wellness"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "400+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Partner Brands"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien Hero",
+      "blocks": [
+        { "type": "stat", "settings": { "number": "400+", "label": "Partner Brands" } },
+        { "type": "stat", "settings": { "number": "10M+", "label": "Happy Shoppers" } },
+        { "type": "stat", "settings": { "number": "₹50Cr+", "label": "Cashback Paid" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

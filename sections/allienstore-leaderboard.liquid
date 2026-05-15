@@ -1,0 +1,95 @@
+<section class="section-allien" id="top-cashback">
+  <div class="section-inner-allien">
+    <div class="section-header-allien">
+      <div>
+        <div class="section-label-allien">{{ section.settings.label }}</div>
+        <div class="section-title-allien">{{ section.settings.title }}</div>
+      </div>
+    </div>
+    <div class="leaderboard-allien">
+      {%- for block in section.blocks -%}
+        <div class="lb-card-allien">
+          <div class="lb-rank-allien {% if forloop.index == 1 %}rank-1-allien{% elsif forloop.index == 2 %}rank-2-allien{% elsif forloop.index == 3 %}rank-3-allien{% else %}rank-n-allien{% endif %}">
+            {{ forloop.index }}
+          </div>
+          <div class="lb-logo-allien">
+            {%- if block.settings.logo != blank -%}
+              <img src="{{ block.settings.logo | image_url: width: 80 }}" alt="{{ block.settings.name }}">
+            {%- else -%}
+               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2z"/></svg>
+            {%- endif -%}
+          </div>
+          <div class="lb-info-allien">
+            <div class="lb-name-allien">{{ block.settings.name }}</div>
+            <div class="lb-cat-allien">{{ block.settings.category }}</div>
+          </div>
+          <div class="lb-cb-allien">
+            {{ block.settings.amount }}
+            <div class="lb-cb-label-allien">Total Paid</div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Allien Leaderboard",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Earnings Leaderboard"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Top Cashback This Month"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "entry",
+      "name": "Entry",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "User/Brand Logo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "default": "Shopping"
+        },
+        {
+          "type": "text",
+          "id": "amount",
+          "label": "Amount",
+          "default": "₹12,450"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Allien Leaderboard",
+      "blocks": [
+        { "type": "entry", "settings": { "name": "Rahul S.", "category": "Amazon Shopping", "amount": "₹12,450" } },
+        { "type": "entry", "settings": { "name": "Priya M.", "category": "Myntra Fashion", "amount": "₹8,920" } },
+        { "type": "entry", "settings": { "name": "Aniket K.", "category": "Electronics", "amount": "₹7,600" } },
+        { "type": "entry", "settings": { "name": "Sneha R.", "category": "Beauty & Wellness", "amount": "₹5,200" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
