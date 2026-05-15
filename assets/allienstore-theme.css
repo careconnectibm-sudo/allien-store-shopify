@@ -649,9 +649,15 @@
 }
 
 @media(max-width:480px){
-  .announcement-bar-allien{font-size:11px;padding:8px 12px;}
-  .hero-allien h1{font-size:30px;}
-  .btn-primary-allien, .btn-secondary-allien{width:100%;justify-content:center;}
+  .announcement-bar-allien{font-size:12px;padding:10px 16px;justify-content:center;gap:12px;}
+  .announcement-text-allien{display:none;} /* Hide long middle text on small mobile */
+  .announcement-link-allien{font-weight:800;text-decoration:underline;}
+  
+  .hero-allien{padding:80px 16px;min-height:480px;display:flex;align-items:center;}
+  .hero-allien h1{font-size:32px;line-height:1.2;}
+  .hero-sub-allien{font-size:14px;line-height:1.5;margin-bottom:32px;}
+  
+  .btn-primary-allien, .btn-secondary-allien{width:100%;justify-content:center;height:52px;font-size:15px;}
   .store-card-allien{max-width:100%;}
 }
 
