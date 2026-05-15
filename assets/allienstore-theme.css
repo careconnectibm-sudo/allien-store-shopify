@@ -628,8 +628,15 @@
 @media(max-width:768px){
   .header-inner-allien{padding:0 16px;height:60px;}
   .nav-allien{display:none;} /* Hide desktop nav on mobile */
-  .search-btn-allien{width:40px;padding:0;justify-content:center;font-size:0;} /* Icon only search */
+  .search-btn-allien{width:36px;padding:0;justify-content:center;font-size:0;} /* Icon only search */
   .search-btn-allien svg{width:18px;height:18px;}
+  
+  .cart-btn-allien{font-size:0; width:36px; padding:0; justify-content:center;} /* Icon only cart */
+  .cart-btn-allien svg{width:18px;height:18px;}
+  .cart-badge-allien{right:2px; top:2px; width:14px; height:14px; font-size:9px;}
+
+  .login-btn-allien{width:auto !important; padding:0 12px !important; height:34px !important; font-size:12px !important;}
+  .header-actions-allien{gap:8px;}
   
   .announcement-text-allien{display:none !important;} /* Force hide on all mobile/tablet */
   .announcement-bar-allien{justify-content:center;gap:16px;}
