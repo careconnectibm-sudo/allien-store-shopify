@@ -290,11 +290,19 @@
       // 2. Local Custom Asset (Generated)
       // 3. High-quality Fallback URL
       // 4. Default Placeholder
-      const shopifyImg = COLLECTION_IMAGES[cat];
+      let shopifyImg = COLLECTION_IMAGES[cat];
+      if (shopifyImg && shopifyImg.indexOf('no-image') !== -1) {
+        shopifyImg = '';
+      }
       const localImg = LOCAL_ASSETS[cat];
-      const fallbackImg = FALLBACK_IMAGES[cat];
+      const fallbackImg = FALLBACK_IMAGES[cat] || `https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80`;
       
-      img.src = shopifyImg || localImg || fallbackImg || `https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80`;
+      img.src = shopifyImg || localImg || fallbackImg;
+      img.onerror = function() {
+        if (this.src !== fallbackImg) {
+          this.src = fallbackImg;
+        }
+      };
       
       img.alt = cat;
       img.loading = 'lazy';

@@ -469,7 +469,9 @@
     if (!grid) return;
 
     // ── State ────────────────────────────────────────────────────
-    let state = { q: '', cat: 'all', status: 'all', type: 'all', sort: 'az', view: 'grid' };
+    const params = new URLSearchParams(window.location.search);
+    const initialCat = params.get('cat') || 'all';
+    let state = { q: '', cat: initialCat, status: 'all', type: 'all', sort: 'az', view: 'grid' };
 
     if (totalCount) totalCount.textContent = stores.length + '+';
 
@@ -483,16 +485,21 @@
     Array.from(catSet).sort().forEach(cat => {
       const lbl = document.createElement('label');
       lbl.className = 'sp-cat-item';
-      lbl.innerHTML = `<input type="radio" name="sp-cat" value="${cat}"> ${cat}`;
+      lbl.innerHTML = `<input type="radio" name="sp-cat" value="${cat}" ${state.cat === cat ? 'checked' : ''}> ${cat}`;
       catList.appendChild(lbl);
     });
+    
+    if (state.cat !== 'all') {
+      const allRadio = document.querySelector('input[name="sp-cat"][value="all"]');
+      if (allRadio) allRadio.checked = false;
+    }
 
     // ── Build Category Pills ────────────────────────────────────
     const pillsList = document.getElementById('sp-pills-list');
     if (pillsList) {
       Array.from(catSet).sort().forEach(cat => {
         const btn = document.createElement('button');
-        btn.className = 'sp-pill';
+        btn.className = 'sp-pill' + (state.cat === cat ? ' is-active' : '');
         btn.textContent = cat;
         btn.dataset.cat = cat;
         btn.addEventListener('click', () => {
@@ -502,6 +509,10 @@
           // Also check the radio button in the sidebar
           const rad = document.querySelector(`input[name="sp-cat"][value="${cat}"]`);
           if (rad) rad.checked = true;
+          // Update URL
+          const url = new URL(window.location);
+          url.searchParams.set('cat', cat);
+          window.history.replaceState({}, '', url);
           render();
         });
         pillsList.appendChild(btn);
@@ -509,12 +520,19 @@
 
       // Special handling for 'All' pill
       const allPill = pillsList.querySelector('[data-cat="all"]');
+      if (allPill && state.cat !== 'all') {
+        allPill.classList.remove('is-active');
+      }
       allPill && allPill.addEventListener('click', () => {
         document.querySelectorAll('.sp-pill').forEach(p => p.classList.remove('is-active'));
         allPill.classList.add('is-active');
         state.cat = 'all';
         const rad = document.querySelector(`input[name="sp-cat"][value="all"]`);
         if (rad) rad.checked = true;
+        // Update URL
+        const url = new URL(window.location);
+        url.searchParams.delete('cat');
+        window.history.replaceState({}, '', url);
         render();
       });
     }
@@ -641,6 +659,13 @@
       document.querySelectorAll('input[name="sp-cat"][value="all"]').forEach(r => r.checked = true);
       document.querySelectorAll('input[name="sp-status"][value="all"]').forEach(r => r.checked = true);
       document.querySelectorAll('input[name="sp-type"][value="all"]').forEach(r => r.checked = true);
+      document.querySelectorAll('.sp-pill').forEach(p => {
+        if (p.dataset.cat === 'all') p.classList.add('is-active');
+        else p.classList.remove('is-active');
+      });
+      const url = new URL(window.location);
+      url.searchParams.delete('cat');
+      window.history.replaceState({}, '', url);
       render();
     }
 
