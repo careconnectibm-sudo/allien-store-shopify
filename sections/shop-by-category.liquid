@@ -203,7 +203,7 @@
 {%- capture collection_images_json -%}
 {
   {%- for collection in collections -%}
-    "{{ collection.title | escape }}": "{{ collection.featured_image | img_url: '400x400', crop: 'center' }}"{%- unless forloop.last -%},{%- endunless -%}
+    {{ collection.title | json }}: "{{ collection.featured_image | img_url: '400x400', crop: 'center' }}"{%- unless forloop.last -%},{%- endunless -%}
   {%- endfor -%}
 }
 {%- endcapture -%}
