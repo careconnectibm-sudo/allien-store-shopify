@@ -14,11 +14,13 @@
     "allien_footer": {
       "type": "allienstore-footer",
       "settings": {
-        "description": "India's most trusted cashback and rewards platform. Save on every purchase across 400+ partner brands.",
+        "description": "India's most trusted cashback and rewards platform. Save on every purchase across 400+ partner brands. mo  9978407347",
         "facebook_link": "https://www.facebook.com/share/1DXVa4zgTm/",
+        "twitter_link": "",
         "instagram_link": "https://www.instagram.com/allien_store_hub/",
         "play_store_link": "https://play.google.com/store/apps/details?id=com.alliengalaxy.allienstore",
-        "email_address": "alliengalaxy071@gmail.com"
+        "email_address": "alliengalaxy071@gmail.com",
+        "bottom_menu": ""
       }
     }
   },
